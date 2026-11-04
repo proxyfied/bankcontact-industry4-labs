@@ -1,0 +1,23 @@
+@startuml
+!pragma layout smetana
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam componentStyle rectangle
+skinparam componentBackgroundColor #F4F7F1
+skinparam componentBorderColor #456650
+skinparam ArrowColor #456650
+component "Browser\nVue 3 + Vue Router + Bootstrap" as Vue
+component "axios\nJSON /api/customers" as Axios
+node "Spring Boot 4 JAR" {
+ component "Static Vue assets\nindex.html + JS + CSS" as Assets
+ component "REST Controller\nCustomerService" as API
+ component "Spring Data JPA\nCustomerRepository" as JPA
+}
+database "PostgreSQL\ncustomers" as PG
+Vue --> Axios : ref / reactive
+Assets --> Vue : GET /
+Axios --> API : GET / POST / PUT / DELETE
+API --> JPA : transaction
+JPA --> PG : JDBC / SQL
+@enduml
