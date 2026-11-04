@@ -23,8 +23,11 @@ function save(payload) {
   request.then(customer => {
     showForm.value = false
     notice.value = update ? `Зміни збережено: ${customer.displayName}.` : `Клієнта ${customer.displayName} успішно додано.`
-    if (!update) page.value = 0
-    return load()
+    if (update) return load()
+    return customersApi.list(0, 1).then(data => {
+      page.value = Math.max(0, Math.ceil(data.totalElements / 10) - 1)
+      return load()
+    })
   }).catch(err => { formError.value = errorMessage(err) })
     .finally(() => { saving.value = false })
 }

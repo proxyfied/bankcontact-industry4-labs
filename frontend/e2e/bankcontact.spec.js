@@ -114,7 +114,7 @@ test('Mobile layout keeps page and forms inside viewport', async ({ page }) => {
   await expect(page.getByRole('dialog')).toHaveCount(0)
 })
 
-test('Server pagination supports next and previous pages', async ({ page, request }) => {
+test('Pagination and creating a customer beyond the first page', async ({ page, request }) => {
   const ids = []
   try {
     for (let i = 0; i < 11; i++) {
@@ -129,6 +129,17 @@ test('Server pagination supports next and previous pages', async ({ page, reques
     await page.getByRole('button', { name: '← Назад', exact: true }).click()
     await expect(page.getByText('Сторінка 1 з 2', { exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: '← Назад', exact: true })).toBeDisabled()
+    const code = unique('LAST')
+    await page.getByRole('button', { name: '＋ Додати клієнта', exact: true }).click()
+    await page.getByLabel('Код клієнта').fill(code)
+    await page.getByLabel('Ім’я клієнта').fill('Новий клієнт на останній сторінці')
+    await page.getByRole('dialog').getByRole('button', { name: 'Додати клієнта', exact: true }).click()
+    const all = await apiData(request, '/api/customers?size=100')
+    const created = all.content.find(c => c.externalCode === code)
+    if (created) ids.push(created.id)
+    await expect(page.getByRole('status')).toContainText('успішно додано')
+    await expect(page.getByText('Сторінка 2 з 2', { exact: true })).toBeVisible()
+    await expect(page.getByRole('row').filter({ hasText: code })).toBeVisible()
   } finally { for (const id of ids) await request.delete(`/api/customers/${id}`) }
 })
 
