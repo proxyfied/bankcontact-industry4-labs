@@ -1,0 +1,20 @@
+@startuml
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultFontName SansSerif
+skinparam sequenceMessageAlign center
+participant "Thymeleaf UI\nBrowser" as UI
+participant "ChatControllerApi" as API
+participant "OpenAiChatModel\nSpring AI" as AI
+participant "OpenAI API\nor HTTP test stub" as Provider
+participant "Jackson\nArticleResponseParser" as Parser
+UI -> API : POST /generate-all\nmessage
+note over API : PromptTemplate {message}\nSystem rules + user data
+API -> AI : call(prompt)
+AI -> Provider : POST /v1/chat/completions\ngpt-4o-mini, JSON object
+Provider --> AI : text response
+AI --> API : ChatResponse
+API -> Parser : clean fences, readValue\nvalidate JSON and page arithmetic
+Parser --> API : SaveArticleToEntity\n36 non-null strings
+API --> UI : article + clock + model + testMode
+@enduml

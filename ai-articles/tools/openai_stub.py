@@ -6,7 +6,19 @@ fixture = json.loads((Path(__file__).resolve().parents[1]/'src/test/resources/fi
 class Handler(BaseHTTPRequestHandler):
  def do_POST(self):
   if self.path != '/v1/chat/completions':self.send_error(404);return
-  request = json.loads(self.rfile.read(int(self.headers['Content-Length'])))
+  if self.headers.get('Transfer-Encoding','').lower() == 'chunked':
+   chunks = []
+   while True:
+    size = int(self.rfile.readline().split(b';',1)[0].strip(),16)
+    if not size:
+     while self.rfile.readline().strip(): pass
+     break
+    chunks.append(self.rfile.read(size))
+    self.rfile.read(2)
+   raw = b''.join(chunks)
+  else:
+   raw = self.rfile.read(int(self.headers.get('Content-Length','0')))
+  request = json.loads(raw)
   text = request['messages'][-1]['content']
   if request.get('model') != 'gpt-4o-mini' or request.get('response_format',{}).get('type') != 'json_object':self.send_error(400);return
   if 'INVALID_JSON' in text: content = 'This is not JSON'
