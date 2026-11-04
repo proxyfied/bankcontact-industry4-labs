@@ -15,6 +15,8 @@ java -jar ai-articles/target/bankcontact-ai-articles-0.0.5-SNAPSHOT.jar
 
 **Межа перевірки:** автоматичні тести використовують локальний HTTP-стаб OpenAI, а не реальну LLM. Вони перевіряють інтеграцію Spring AI, парсинг та UI; якість і час живої генерації потребують запуску з власним API-ключем. Тестовий режим явно позначено в UI.
 
+[Перевірка ЛР5 у GitHub Actions](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41770888786): 31 Java-тест і 4 браузерні сценарії зі стабом успішні. [Скріншоти](evidence/lab5/screenshots) і [звіт Playwright](evidence/lab5/playwright-results.json).
+
 Версію ЛР4 збережено в [lab4-vue-client](https://github.com/proxyfied/bankcontact-industry4-labs/tree/lab4-vue-client).
 
 ## ЛР4 — Vue та корпоративний REST API

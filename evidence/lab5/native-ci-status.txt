@@ -1,0 +1,4 @@
+GitHub Actions: SUCCESS. Java 17, Spring Boot 3.5.15, Spring AI 1.1.8.
+31 тест JUnit і 4 сценарії Chromium — успішні з локальним HTTP-стабом OpenAI. Реальний API не викликався.
+Запуск: https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41770888786
+Перевірений commit: cb78d7c25746d8e57e9cbf05f9c5183b77351c69
