@@ -11,6 +11,7 @@ const articleAiUrl = import.meta.env.VITE_ARTICLE_AI_URL || 'http://localhost:80
     <nav aria-label="Головне меню" class="top-nav">
       <RouterLink to="/" exact-active-class="active">Огляд</RouterLink>
       <RouterLink to="/customers" active-class="active">Клієнти</RouterLink>
+      <RouterLink to="/analytics" active-class="active">BI аналітика</RouterLink>
       <RouterLink to="/about" active-class="active">Про проєкт</RouterLink>
       <a :href="articleAiUrl">AI статті ↗</a>
     </nav>

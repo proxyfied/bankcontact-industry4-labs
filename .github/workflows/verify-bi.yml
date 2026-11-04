@@ -1,0 +1,68 @@
+name: Verify Lab 6 Excel import and BI
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  bi:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_DB: bankcontact_lab2
+          POSTGRES_USER: bankcontact
+          POSTGRES_PASSWORD: bankcontact_dev
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U bankcontact -d bankcontact_lab2"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify imports and transactions on PostgreSQL
+        run: mvn -B -f bi-service/pom.xml verify
+      - name: Build Vue and corporate application
+        run: |
+          npm --prefix frontend ci
+          npm --prefix frontend run build:backend
+          mvn -B -DskipTests package
+          cd frontend
+          npx playwright install --with-deps chromium
+      - name: Browser verification with real PostgreSQL and both services
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/lab6
+          java -jar bi-service/target/bankcontact-bi-0.0.6-SNAPSHOT.jar > evidence/lab6/bi-server.log 2>&1 &
+          bi_pid=$!
+          java -jar target/bankcontact-0.0.3-SNAPSHOT.jar --spring.profiles.active=demo > evidence/lab6/corporate-server.log 2>&1 &
+          app_pid=$!
+          trap 'kill "$bi_pid" "$app_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in {1..60}; do
+            if curl --fail --silent http://localhost:8083/api/analytics > /dev/null && curl --fail --silent http://localhost:8080/ > /dev/null; then ready=true; break; fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then cat evidence/lab6/*server.log; exit 1; fi
+          cd frontend
+          npx playwright test --config playwright.bi.config.js
+      - name: Export persisted totals and database schema
+        if: success()
+        run: |
+          docker exec ${{ job.services.postgres.id }} pg_dump -U bankcontact -d bankcontact_lab2 --schema-only -t bi_contact_records > evidence/lab6/schema.sql
+          docker exec ${{ job.services.postgres.id }} psql -U bankcontact -d bankcontact_lab2 -c 'SELECT count(*) AS records, sum(handling_minutes) AS minutes FROM bi_contact_records;' > evidence/lab6/database-check.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lab6-postgresql-bi-verification
+          path: |
+            bi-service/target/surefire-reports/
+            evidence/lab6/
+            frontend/test-results/
