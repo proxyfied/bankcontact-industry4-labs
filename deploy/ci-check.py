@@ -7,7 +7,10 @@ out.mkdir(parents=True, exist_ok=True)
 compose = ['docker', 'compose', '--env-file', 'deploy/.env', '-f', 'docker-compose.yml']
 
 def run(args, check=True):
-    return subprocess.run(args, cwd=root, capture_output=True, text=True, check=check)
+    result = subprocess.run(args, cwd=root, capture_output=True, text=True)
+    if check and result.returncode:
+        raise RuntimeError(result.stderr.strip() or 'Deployment check command failed')
+    return result
 
 network = {}
 for service in ['app', 'db']:
@@ -30,7 +33,7 @@ network['appUid'] = uid
 
 sql = """SELECT current_user, rolsuper, rolcreatedb, rolcreaterole
 FROM pg_roles WHERE rolname=current_user;
-SELECT u.username, left(u.password,7)=chr(36)||'2a'||chr(36)||'12'||chr(36) AS bcrypt_cost_12,
+SELECT u.username, bool_and(left(u.password,7)=chr(36)||'2a'||chr(36)||'12'||chr(36)) AS bcrypt_cost_12,
 string_agg(r.name,', ' ORDER BY r.name) AS roles FROM security.sec_users u
 JOIN security.sec_user_roles ur ON ur.user_id=u.id JOIN security.sec_roles r ON r.id=ur.role_id
 GROUP BY u.username ORDER BY u.username;"""
