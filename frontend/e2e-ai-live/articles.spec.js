@@ -32,4 +32,6 @@ test('One real GPT-4o-mini generation through Spring AI and Thymeleaf', async ({
   expect(result.article.published_in_ukraine).toBe('1')
   expect(result.article.published_abroad).toBe('0')
   expect(result.article.specialized).toBe('Category A')
+  expect(result.article.source_text).toBe(citation)
+  expect(result.article.citation_text).toBe(citation)
 })
