@@ -1,5 +1,6 @@
 <script setup>
 const articleAiUrl = import.meta.env.VITE_ARTICLE_AI_URL || 'http://localhost:8082/articles'
+const securityUrl = import.meta.env.VITE_SECURITY_URL || 'http://localhost:8084/'
 </script>
 <template>
 <header class="app-header">
@@ -14,6 +15,7 @@ const articleAiUrl = import.meta.env.VITE_ARTICLE_AI_URL || 'http://localhost:80
       <RouterLink to="/analytics" active-class="active">BI аналітика</RouterLink>
       <RouterLink to="/about" active-class="active">Про проєкт</RouterLink>
       <a :href="articleAiUrl">AI статті ↗</a>
+      <a :href="securityUrl">Доступ ↗</a>
     </nav>
     <div class="workspace"><span class="workspace-dot"></span>Навчальний простір<span class="avatar">ЄМ</span></div>
   </div>

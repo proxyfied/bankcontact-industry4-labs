@@ -63,3 +63,12 @@ npm run test:e2e
 Тести основного застосунку запускайте з окремою навчальною PostgreSQL, а браузерні — із запущеним JAR. AI-тести JUnit використовують локальний HTTP-стаб і не потребують платного API. Браузерні сценарії AI зі стабом: `npm run test:ai` з каталогу `frontend`, після запуску `ai-articles/tools/openai_stub.py` та AI-сервісу з `OPENAI_API_KEY=test-key-not-real`, `OPENAI_BASE_URL=http://127.0.0.1:8099`, `AI_TEST_MODE=true`.
 
 Реальна перевірка запускається вручну через Actions → Lab 5 - Real GPT-4o-mini verification → Run workflow. Потрібен Actions secret `OPENAI_API_KEY`; виконується один платний запит. [Збережений результат](../evidence/lab5-live/generation-response.json), [скріншоти](../evidence/lab5-live/screenshots/). Контрольний приклад: 36 полів, 11 сторінок, `ukr`, clock 6435 мс. Це один вимір, а не середня швидкість моделі.
+
+## Керування доступом та сесіями
+
+```powershell
+.\mvnw.cmd -f security-service/pom.xml verify
+java -jar security-service/target/bankcontact-security-0.0.7-SNAPSHOT.jar --spring.profiles.active=demo
+```
+
+Адреса: http://localhost:8084/. Пункт «Доступ» у Vue веде до цього модуля. [Ролі, навчальні акаунти, параметри та перевірка сесій](lab7/security.md). Модуль використовує PostgreSQL, запущений вище; сесія захищає його сторінки на 8084.
