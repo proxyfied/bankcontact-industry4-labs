@@ -67,8 +67,8 @@ JUnit перевіряє реєстрацію, BCrypt, валідацію, ві�
 
 ## Фактичні результати
 
-Локально на H2 успішні **19 тестів JUnit і 7 браузерних сценаріїв**. Використано реальний Spring Boot, Thymeleaf і незалежні браузерні сесії. Підтверджено витіснення першого входу другим, доступ за ролями, завершення сесії під час logout, CSRF та атрибути cookie. [Результати](../../evidence/lab7/verification.json), [звіт Playwright](../../evidence/lab7/playwright-results.json).
+Успішні **19 тестів JUnit і 7 браузерних сценаріїв** як локально на H2, так і в [GitHub Actions на PostgreSQL 17](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41864408222). Використано справжній Spring Boot, Thymeleaf і незалежні браузерні сесії. Підтверджено витіснення першого входу другим, доступ за ролями, завершення сесії під час logout, CSRF та атрибути cookie.
 
-[Додаткова перевірка на PostgreSQL 17](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41864408222) на час збереження результатів очікує в черзі GitHub Actions; її не зараховано до успішних тестів.
+[Зведені результати](../../evidence/lab7/verification.json), [SQL-перевірка BCrypt і ролей](../../evidence/lab7/postgresql/database-check.txt), [схема PostgreSQL](../../evidence/lab7/postgresql/schema.sql), [звіт Playwright на PostgreSQL](../../evidence/lab7/postgresql/playwright-results.json).
 
-Скріншоти додано до Word-звіту ЛР7. Окремі PNG наразі не опубліковані в репозиторії.
+Скріншоти локального H2-запуску додано до Word-звіту ЛР7. Окремі PNG наразі не опубліковані в репозиторії.

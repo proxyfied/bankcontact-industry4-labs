@@ -1,0 +1,8 @@
+   username   | bcrypt_cost_12 |    roles     
+--------------+----------------+--------------
+ demo.admin   | t              | ROLE_ADMIN
+ demo.manager | t              | ROLE_MANAGER
+ demo.user    | t              | ROLE_USER
+ lab7.newuser | t              | ROLE_USER
+(4 rows)
+

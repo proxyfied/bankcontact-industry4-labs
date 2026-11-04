@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ua.edu.kneu.security.SecurityIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.00 s -- in ua.edu.kneu.security.SecurityIntegrationTest

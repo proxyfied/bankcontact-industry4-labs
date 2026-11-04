@@ -1,0 +1,8 @@
+{
+  "registrationWithoutCsrf": 403,
+  "loginWithoutCsrf": 403,
+  "logoutWithoutCsrf": 403,
+  "cookieName": "BANKCONTACT_AUTH",
+  "httpOnly": true,
+  "sameSite": "Lax"
+}

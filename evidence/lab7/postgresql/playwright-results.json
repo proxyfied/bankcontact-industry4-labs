@@ -1,0 +1,420 @@
+{
+  "config": {
+    "argv": [
+      "/opt/hostedtoolcache/node/22.23.4/x64/bin/node",
+      "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/node_modules/.bin/playwright",
+      "test",
+      "--config",
+      "playwright.security.config.js"
+    ],
+    "configFile": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/playwright.security.config.js",
+    "rootDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/e2e-security",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/proxyfied/bankcontact-industry4-labs/commit/94484d0fde54c7692a72164656b496966f338db2",
+        "commitHash": "94484d0fde54c7692a72164656b496966f338db2",
+        "buildHref": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41864408222"
+      },
+      "gitCommit": {
+        "shortHash": "94484d0",
+        "hash": "94484d0fde54c7692a72164656b496966f338db2",
+        "subject": "Return 403 for CSRF failures forwarded with POST methods",
+        "body": "Return 403 for CSRF failures forwarded with POST methods",
+        "author": {
+          "name": "proxyfied",
+          "email": "167390963+proxyfied@users.noreply.github.com",
+          "time": 1793808487000
+        },
+        "committer": {
+          "name": "proxyfied",
+          "email": "167390963+proxyfied@users.noreply.github.com",
+          "time": 1793808487000
+        },
+        "branch": "main"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/proxyfied/bankcontact-industry4-labs/commit/94484d0fde54c7692a72164656b496966f338db2",
+            "commitHash": "94484d0fde54c7692a72164656b496966f338db2",
+            "buildHref": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41864408222"
+          },
+          "gitCommit": {
+            "shortHash": "94484d0",
+            "hash": "94484d0fde54c7692a72164656b496966f338db2",
+            "subject": "Return 403 for CSRF failures forwarded with POST methods",
+            "body": "Return 403 for CSRF failures forwarded with POST methods",
+            "author": {
+              "name": "proxyfied",
+              "email": "167390963+proxyfied@users.noreply.github.com",
+              "time": 1793808487000
+            },
+            "committer": {
+              "name": "proxyfied",
+              "email": "167390963+proxyfied@users.noreply.github.com",
+              "time": 1793808487000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/e2e-security",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 40000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/proxyfied/bankcontact-industry4-labs/commit/94484d0fde54c7692a72164656b496966f338db2",
+            "commitHash": "94484d0fde54c7692a72164656b496966f338db2",
+            "buildHref": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41864408222"
+          },
+          "gitCommit": {
+            "shortHash": "94484d0",
+            "hash": "94484d0fde54c7692a72164656b496966f338db2",
+            "subject": "Return 403 for CSRF failures forwarded with POST methods",
+            "body": "Return 403 for CSRF failures forwarded with POST methods",
+            "author": {
+              "name": "proxyfied",
+              "email": "167390963+proxyfied@users.noreply.github.com",
+              "time": 1793808487000
+            },
+            "committer": {
+              "name": "proxyfied",
+              "email": "167390963+proxyfied@users.noreply.github.com",
+              "time": 1793808487000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 1
+        },
+        "name": "",
+        "testDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/e2e-security",
+        "snapshotDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/e2e-security",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 40000,
+        "use": {
+          "baseURL": "http://localhost:8084",
+          "viewport": {
+            "width": 1440,
+            "height": 1050
+          },
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": ""
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../evidence/lab7/playwright-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "security.spec.js",
+      "file": "security.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "public home and registration create a real default USER account",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2014,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T16:09:28.912Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3efa7971ab9a8dd627a5-661b55826ff90c3e7e64",
+          "file": "security.spec.js",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "USER receives real 403 for privileged pages and anonymous-only forms",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1164,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T16:09:31.225Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3efa7971ab9a8dd627a5-1157125ab440d662b331",
+          "file": "security.spec.js",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "MANAGER accesses manager and user pages but not admin",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 807,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T16:09:32.404Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3efa7971ab9a8dd627a5-58a4a70edd171e6e3d85",
+          "file": "security.spec.js",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "ADMIN tracks active users and logout removes the real servlet session",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1549,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T16:09:33.226Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3efa7971ab9a8dd627a5-f3d1074952e0b152a552",
+          "file": "security.spec.js",
+          "line": 49,
+          "column": 1
+        },
+        {
+          "title": "second isolated browser context invalidates the first login",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1505,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T16:09:34.789Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3efa7971ab9a8dd627a5-1c504db6adb71a6a927f",
+          "file": "security.spec.js",
+          "line": 64,
+          "column": 1
+        },
+        {
+          "title": "CSRF is required and session cookies are HttpOnly and SameSite Lax",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 667,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T16:09:36.308Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3efa7971ab9a8dd627a5-28bdc452202a8532ce37",
+          "file": "security.spec.js",
+          "line": 81,
+          "column": 1
+        },
+        {
+          "title": "mobile registration fits and wrong credentials show an error",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 40000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 658,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T16:09:37.001Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3efa7971ab9a8dd627a5-8fefbe9a0429dfdf4136",
+          "file": "security.spec.js",
+          "line": 93,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-04T16:09:28.397Z",
+    "duration": 9322.201000000001,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
