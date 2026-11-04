@@ -1,9 +1,6 @@
 name: Lab 5 - Real GPT-4o-mini verification
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.github/workflows/verify-ai-live.yml'
 permissions:
   contents: read
 jobs:
