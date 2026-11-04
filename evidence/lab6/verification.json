@@ -1,0 +1,18 @@
+{
+  "runId": 41843133588,
+  "url": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41843133588",
+  "commit": "7b5552ada2a67dce18e29d71524f7b233054f9aa",
+  "conclusion": "success",
+  "database": "PostgreSQL 17",
+  "junit": {
+    "tests": 12,
+    "failures": 0,
+    "errors": 0
+  },
+  "playwright": {
+    "passed": 5,
+    "failed": 0
+  },
+  "fixtureRecords": 12,
+  "totalMinutes": 114
+}

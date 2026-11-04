@@ -44,3 +44,7 @@ Chart.js створюється в `onMounted`, оновлюється чере�
 `fixtures/lab6/template.xlsx`: 12 синтетичних звернень за 01–03.11.2026. Чотири категорії по 3 записи, статуси CLOSED — 4, RESOLVED — 4, NEW — 2, IN_PROGRESS — 2; по 4 звернення щодня. Сума тривалості — 114 хв, частка вирішених і закритих — 66,7%.
 
 Workflow `verify-bi.yml` перевіряє імпорт на PostgreSQL 17, збирає Vue всередині корпоративного JAR, запускає BI та основний сервер і виконує браузерні тести. Він не звертається до OpenAI й не витрачає API-баланс.
+
+## Результат перевірки
+
+[Запуск GitHub Actions](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41843133588) успішний: 12 JUnit-тестів на PostgreSQL 17 та 5 браузерних сценаріїв. [Статистика API](../../evidence/lab6/analytics-response.json), [SQL-підсумок](../../evidence/lab6/database-check.txt), [скріншоти](../../evidence/lab6/screenshots/) і [звіт Playwright](../../evidence/lab6/playwright-results.json).

@@ -1,0 +1,54 @@
+{
+  "total": 12,
+  "totalMinutes": 114,
+  "categories": [
+    {
+      "label": "Картки",
+      "count": 3
+    },
+    {
+      "label": "Кредити",
+      "count": 3
+    },
+    {
+      "label": "Платежі",
+      "count": 3
+    },
+    {
+      "label": "Рахунки",
+      "count": 3
+    }
+  ],
+  "statuses": [
+    {
+      "label": "CLOSED",
+      "count": 4
+    },
+    {
+      "label": "IN_PROGRESS",
+      "count": 2
+    },
+    {
+      "label": "NEW",
+      "count": 2
+    },
+    {
+      "label": "RESOLVED",
+      "count": 4
+    }
+  ],
+  "dates": [
+    {
+      "label": "2026-11-01",
+      "count": 4
+    },
+    {
+      "label": "2026-11-02",
+      "count": 4
+    },
+    {
+      "label": "2026-11-03",
+      "count": 4
+    }
+  ]
+}
