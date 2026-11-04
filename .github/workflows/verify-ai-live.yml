@@ -1,6 +1,9 @@
 name: Lab 5 - Real GPT-4o-mini verification
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/verify-ai-live.yml'
 permissions:
   contents: read
 jobs:
@@ -39,7 +42,7 @@ jobs:
           mkdir -p evidence/lab5-live
           java -jar ai-articles/target/bankcontact-ai-articles-0.0.5-SNAPSHOT.jar > /tmp/bankcontact-ai-live.log 2>&1 &
           app_pid=$!
-          trap 'python ai-articles/tools/collect_ai_diagnostics.py /tmp/bankcontact-ai-live.log evidence/lab5-live/provider-diagnostics.json; kill "$app_pid" 2>/dev/null || true' EXIT
+          trap 'python "$GITHUB_WORKSPACE/ai-articles/tools/collect_ai_diagnostics.py" /tmp/bankcontact-ai-live.log "$GITHUB_WORKSPACE/evidence/lab5-live/provider-diagnostics.json"; kill "$app_pid" 2>/dev/null || true' EXIT
           ready=false
           for attempt in {1..60}; do
             if curl --fail --silent http://localhost:8082/articles > /dev/null; then ready=true; break; fi
