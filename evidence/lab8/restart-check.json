@@ -1,0 +1,7 @@
+{
+  "appContainerRecreated": true,
+  "databaseRestarted": true,
+  "existingAccountLogin": true,
+  "oldSessionRedirect": "/login",
+  "assignedAdminRolePersisted": true
+}

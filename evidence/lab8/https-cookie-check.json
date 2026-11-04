@@ -1,0 +1,12 @@
+{
+  "httpsStatus": 200,
+  "health": "UP",
+  "httpRedirect": 308,
+  "publicLoginRedirect": "https://localhost:8443/login",
+  "forwardedHeaderSpoofIgnored": true,
+  "cookieName": "JSESSIONID",
+  "secure": true,
+  "httpOnly": true,
+  "sameSite": "Lax",
+  "certificate": "self-signed CI certificate"
+}

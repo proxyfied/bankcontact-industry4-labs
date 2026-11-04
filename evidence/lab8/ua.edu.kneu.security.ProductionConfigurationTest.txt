@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: ua.edu.kneu.security.ProductionConfigurationTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.299 s -- in ua.edu.kneu.security.ProductionConfigurationTest

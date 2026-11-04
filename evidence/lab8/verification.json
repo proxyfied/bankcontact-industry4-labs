@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41889724207",
+  "runId": 41889724207,
+  "commit": "28832ebe75b1bd1aff31d413aa936c28d58b7db8",
+  "conclusion": "success",
+  "junitPassed": 22,
+  "browserBeforePassed": 3,
+  "browserAfterPassed": 2,
+  "environment": "Ubuntu 24.04 GitHub Actions; real Docker containers",
+  "permanentPublicDeployment": false,
+  "publicLetsEncryptCertificateIssued": false
+}

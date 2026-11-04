@@ -1,0 +1,8 @@
+SET
+INSERT 0 1
+    username     |    name    
+-----------------+------------
+ deployment.user | ROLE_ADMIN
+ deployment.user | ROLE_USER
+(2 rows)
+

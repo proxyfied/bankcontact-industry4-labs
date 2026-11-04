@@ -1,0 +1,4 @@
+NAME                       IMAGE                       COMMAND                  SERVICE   CREATED              STATUS                            PORTS
+bankcontact-prod-app-1     bankcontact-security:lab8   "java -jar /app/app.…"   app       17 seconds ago       Up 10 seconds (healthy)           
+bankcontact-prod-db-1      postgres:17-bookworm        "docker-entrypoint.s…"   db        About a minute ago   Up 5 seconds (health: starting)   
+bankcontact-prod-nginx-1   nginx:1.28-alpine           "/docker-entrypoint.…"   nginx     About a minute ago   Up 51 seconds (healthy)           0.0.0.0:8088->80/tcp, [::]:8088->80/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp

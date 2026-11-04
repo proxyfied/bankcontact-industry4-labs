@@ -1,0 +1,6 @@
+{
+  "isolatedBrowserContexts": 2,
+  "firstRedirect": "/login?expired",
+  "secondProtectedStatus": 200,
+  "cookieValuesExported": false
+}

@@ -1,0 +1,12 @@
+  current_user   | rolsuper | rolcreatedb | rolcreaterole 
+-----------------+----------+-------------+---------------
+ bankcontact_app | f        | f           | f
+(1 row)
+
+    username     | bcrypt_cost_12 |         roles         
+-----------------+----------------+-----------------------
+ deployment.user | t              | ROLE_ADMIN, ROLE_USER
+(1 row)
+
+
+CREATE DATABASE by app role: permission denied (expected).
