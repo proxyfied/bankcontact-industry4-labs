@@ -1,0 +1,7 @@
+{
+  "isolatedBrowserContexts": 2,
+  "sameCanonicalUsername": true,
+  "firstRedirect": "/login?expired",
+  "secondProtectedStatus": 200,
+  "secondLoginAccepted": true
+}

@@ -1,0 +1,21 @@
+{
+  "database": "H2",
+  "testDatabaseUrl": "jdbc:h2:mem:browser",
+  "execution": "Local integration and real browser tests",
+  "url": "https://github.com/proxyfied/bankcontact-industry4-labs/tree/94484d0fde54c7692a72164656b496966f338db2/security-service",
+  "commit": "94484d0fde54c7692a72164656b496966f338db2",
+  "junit": {
+    "tests": 19,
+    "failures": 0,
+    "errors": 0
+  },
+  "playwright": {
+    "passed": 7,
+    "failed": 0
+  },
+  "postgresWorkflow": {
+    "id": 41864408222,
+    "status": "queued",
+    "url": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41864408222"
+  }
+}

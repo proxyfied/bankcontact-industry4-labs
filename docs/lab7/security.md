@@ -61,6 +61,14 @@ Cookie `BANKCONTACT_AUTH` має HttpOnly та SameSite=Lax; вона відок
 
 JUnit перевіряє реєстрацію, BCrypt, валідацію, відсутність підвищення ролі, матрицю доступу, CSRF, logout та витіснення першої сесії. Локально використовується тестова H2; workflow `verify-security.yml` повторює ці тести на PostgreSQL 17 через `TEST_DB_URL`, `TEST_DB_USER`, `TEST_DB_PASSWORD`.
 
-Playwright працює зі справжнім JAR і PostgreSQL. Для перевірки одночасних входів створює два ізольовані контексти браузера з різними cookie-сховищами. Це перевірка двох незалежних браузерних сесій у Chromium. Платні AI-запити не виконуються.
+У workflow Playwright запускається зі справжнім JAR і PostgreSQL. Для перевірки одночасних входів створює два ізольовані контексти браузера з різними cookie-сховищами. Це перевірка двох незалежних браузерних сесій у Chromium. Платні AI-запити не виконуються.
 
 Джерела: https://docs.spring.io/spring-security/reference/6.5/servlet/authentication/session-management.html та https://docs.spring.io/spring-security/reference/6.5/features/authentication/password-storage.html.
+
+## Фактичні результати
+
+Локально на H2 успішні **19 тестів JUnit і 7 браузерних сценаріїв**. Використано реальний Spring Boot, Thymeleaf і незалежні браузерні сесії. Підтверджено витіснення першого входу другим, доступ за ролями, завершення сесії під час logout, CSRF та атрибути cookie. [Результати](../../evidence/lab7/verification.json), [звіт Playwright](../../evidence/lab7/playwright-results.json).
+
+[Додаткова перевірка на PostgreSQL 17](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41864408222) на час збереження результатів очікує в черзі GitHub Actions; її не зараховано до успішних тестів.
+
+Скріншоти додано до Word-звіту ЛР7. Окремі PNG наразі не опубліковані в репозиторії.

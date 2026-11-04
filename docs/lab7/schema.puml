@@ -1,0 +1,22 @@
+@startuml
+!pragma layout smetana
+hide circle
+skinparam linetype ortho
+entity sec_users {
+ * id : bigint <<PK>>
+ --
+ username : varchar(40) <<unique>>
+ password : varchar(100)
+}
+entity sec_user_roles {
+ * user_id : bigint <<PK, FK>>
+ * role_id : bigint <<PK, FK>>
+}
+entity sec_roles {
+ * id : bigint <<PK>>
+ --
+ name : varchar(30) <<unique>>
+}
+sec_users ||--o{ sec_user_roles
+sec_roles ||--o{ sec_user_roles
+@enduml
