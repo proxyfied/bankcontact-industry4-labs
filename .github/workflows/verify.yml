@@ -1,4 +1,4 @@
-name: Verify PostgreSQL ORM
+name: Verify BankContact PostgreSQL and REST API
 on: [push, workflow_dispatch]
 jobs:
   verify:
@@ -21,18 +21,35 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-      - run: mvn -B verify
-      - name: Export schema and validation
-        env:
-          PGPASSWORD: bankcontact_dev
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test and package Spring Boot 4 API
+        run: mvn -B verify
+      - name: Run Postman collection via Newman
+        shell: bash
         run: |
-          mkdir -p evidence
-          docker exec ${{ job.services.postgres.id }} pg_dump -U bankcontact -d bankcontact_lab2 --schema-only > evidence/schema.sql
-          docker exec -i ${{ job.services.postgres.id }} psql -U bankcontact -d bankcontact_lab2 < sql/verify.sql > evidence/database-check.txt
+          set -euo pipefail
+          mkdir -p evidence/lab3
+          java -jar target/bankcontact-0.0.3-SNAPSHOT.jar --spring.profiles.active=demo > evidence/lab3/server.log 2>&1 &
+          app_pid=$!
+          trap 'kill "$app_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in {1..60}; do
+            if curl --fail --silent http://localhost:8080/api/customers > /dev/null; then ready=true; break; fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then cat evidence/lab3/server.log; exit 1; fi
+          npx --yes newman@6.2.1 run postman/BankContact_Lab3.postman_collection.json --bail --reporters cli,json --reporter-json-export evidence/lab3/newman-report.json | tee evidence/lab3/newman-console.txt
+      - name: Export schema and SQL validation
+        run: |
+          mkdir -p evidence/lab3
+          docker exec ${{ job.services.postgres.id }} pg_dump -U bankcontact -d bankcontact_lab2 --schema-only > evidence/lab3/schema.sql
+          docker exec -i ${{ job.services.postgres.id }} psql -U bankcontact -d bankcontact_lab2 < sql/verify.sql > evidence/lab3/database-check.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: postgres-validation
+          name: lab3-postgresql-rest-validation
           path: |
             target/surefire-reports/
-            evidence/
+            evidence/lab3/

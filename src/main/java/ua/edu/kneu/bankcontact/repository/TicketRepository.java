@@ -1,4 +1,7 @@
 package ua.edu.kneu.bankcontact.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.edu.kneu.bankcontact.entity.Ticket;
-public interface TicketRepository extends JpaRepository<Ticket, Long> {}
+public interface TicketRepository extends JpaRepository<Ticket, Long> {
+    boolean existsByCustomerId(Long customerId);
+    boolean existsByAssignedAgentId(Long assignedAgentId);
+}

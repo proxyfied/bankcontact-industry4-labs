@@ -1,0 +1,21 @@
+@startuml
+!pragma layout smetana
+skinparam monochrome true
+skinparam shadowing false
+top to bottom direction
+component "Vue.js client\nplanned external client" as Vue
+package "BankContact API\nSpring Boot 4" {
+  component "REST controllers\nCustomer Agent Ticket" as Controller
+  component "DTO and validation" as DTO
+  component "Transactional services" as Service
+  component "JPA repositories" as Repository
+  component "JPA entities\nLab 2 model" as Entity
+  Controller --> Service
+  Controller .. DTO
+  Service --> Repository
+  Repository --> Entity
+}
+database "PostgreSQL" as DB
+Vue --> Controller : HTTP JSON and CORS
+Entity --> DB : JDBC
+@enduml

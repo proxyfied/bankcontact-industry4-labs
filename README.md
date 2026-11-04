@@ -1,94 +1,121 @@
-# BankContact — Лабораторна робота 2
+# BankContact — Лабораторна робота 3
 
-**Морозов Єгор, ІУС-601.** Дисципліна: «Технології Індустрії 4.0, 5.0 в інформаційних управляючих системах».
+**Морозов Єгор, ІУС-601.** Технології Індустрії 4.0, 5.0 в інформаційних управляючих системах.
 
-BankContact цифровізує послуги банківського кол-центру: збирає звернення та події взаємодій, пов'язує їх із клієнтами й операторами та формує основу автоматичного маршрутизування й аналітики. Реальні персональні дані в прикладі не використовуються.
+Серверна частина банківського кол-центру на **Spring Boot 4.0.9**. API цифровізує клієнтів, операторів і звернення та працює з ORM-моделлю з ЛР2. Дані демонстрації синтетичні.
 
-## Стек
-Java 17, Spring Boot 3.5.7, Maven, Spring Data JPA / Hibernate, Lombok, PostgreSQL 17. Додатковий контейнер pgAdmin доступний для огляду схеми.
+[Версія ЛР2 на Spring Boot 3.5.7](https://github.com/proxyfied/bankcontact-industry4-labs/tree/lab2-orm) збережена окремою гілкою.
 
-## Модель
-Шість сутностей: Department, Agent, Skill, Customer, Ticket, Interaction.
-Спільні id, createdAt, updatedAt успадковуються від BaseEntity (@MappedSuperclass).
-- Department 1 → N Agent.
-- Customer 1 → N Ticket.
-- Agent 0..1 → N Ticket.
-- Ticket 1 → N Interaction.
-- Agent M ↔ N Skill через agent_skills.
+## Архітектура
+Vue.js (клієнт) → HTTP/JSON → Controller → Service → Repository → Entity → PostgreSQL.
 
-Зворотні OneToMany використовують mappedBy, а власник ManyToMany — Agent з явною JoinTable. Каскад REMOVE не застосовується до спільних навичок і даних історії. Lombok використовується без @Data та equals/hashCode за асоціаціями, щоб уникнути рекурсії і змінного hashCode у Set.
+Реалізовано один автономно розгортуваний бізнес-сервіс BankContact API. Три контролери є ресурсами одного сервісу, а не трьома мікросервісами. REST-контракт і зовнішня конфігурація дозволяють включити його до мікросервісної системи. Frontend, gateway та discovery до обсягу цієї роботи не входять.
 
-![UML](docs/classes.png)
+- DTO відокремлюють API від JPA-сутностей і запобігають рекурсивній серіалізації.
+- Транзакції та бізнес-правила розміщені в сервісах.
+- Списки мають пагінацію: page ≥ 0, size від 1 до 100, сортування за id.
+- Agent.department завантажується EntityGraph, колекція навичок — пакетно через BatchSize.
+- Backend не зберігає користувацьку HTTP-сесію.
+- Фактичну пропускну здатність і горизонтальне масштабування навантажувальними тестами не вимірювали.
 
-ER-діаграма, згенерована у pgAdmin з фактичної локальної БД:
+## Технології
+Java 17, Maven, Spring Boot 4.0.9, Spring Web MVC, Spring Data JPA/Hibernate,
+PostgreSQL, Lombok, DevTools, Jakarta Validation. Скелет і Maven Wrapper отримано зі Spring Initializr; див. [параметри генерації](docs/lab3/initializr.md).
 
-![pgAdmin ERD](docs/pgadmin-erd.png)
+## Швидкий запуск у Windows 11
+Потрібні JDK 17 і Docker Desktop. Maven можна використовувати через включений Wrapper.
 
-## Запуск у Windows 11
-
-Потрібні JDK 17, Maven 3.6.3+ та Docker Desktop (або окремий PostgreSQL).
-
-У PowerShell у папці проєкту:
-
+PowerShell у корені проєкту:
 ~~~powershell
 docker compose up -d --wait
-mvn -DskipTests package
-java -jar target/bankcontact-0.0.1-SNAPSHOT.jar --spring.profiles.active=demo
+.\mvnw.cmd -DskipTests package
+java -jar target/bankcontact-0.0.3-SNAPSHOT.jar --spring.profiles.active=demo
 ~~~
 
-Профіль demo **пересоздає таблиці в зазначеній БД** через ddl-auto=create. Використовуйте лише окрему навчальну bankcontact_lab2. Він додає по 2 записи до кожної сутнісної таблиці та 4 пари до agent_skills, щоб показати обидві сторони M:N. Застосунок цієї лабораторної — консольний; після виконання CommandLineRunner він завершується, дані залишаються у PostgreSQL.
+API: http://localhost:8080/api/customers. Сервер працює до Ctrl+C.
 
-Без demo: ddl-auto=update, завантаження демонстраційних даних вимкнено.
+Профіль **demo пересоздає таблиці** та додає початкові записи. Запускайте його лише з окремою навчальною БД. Без demo застосовується ddl-auto=update і наповнення вимкнено. Назва bankcontact_lab2 збережена для продовження попередньої роботи.
 
-### Власний PostgreSQL замість Docker
-Створіть роль і порожню БД від імені адміністратора (навчальний пароль у прикладі):
-
-~~~sql
-CREATE ROLE bankcontact LOGIN PASSWORD 'bankcontact_dev';
-CREATE DATABASE bankcontact_lab2 OWNER bankcontact;
-~~~
-
-За потреби змініть параметри PowerShell:
+Налаштування змінними середовища:
 ~~~powershell
 $env:DB_URL="jdbc:postgresql://localhost:5432/bankcontact_lab2"
 $env:DB_USER="bankcontact"
 $env:DB_PASSWORD="bankcontact_dev"
+$env:PORT="8080"
+$env:CORS_ALLOWED_ORIGINS="http://localhost:5173,http://localhost:8081"
 ~~~
 
-### pgAdmin
-Відкрити http://localhost:5050. Навчальний логін student@example.com, пароль pgadmin_dev (можна змінити через PGADMIN_PASSWORD перед docker compose).
-Register Server:
-- Name: BankContact Lab 2
-- Host: postgres (усередині Docker-мережі; для локального pgAdmin — localhost)
-- Port: 5432
-- Maintenance database: bankcontact_lab2
-- Username: bankcontact
-- Password: bankcontact_dev
+## REST API
+Префікси: /api/customers, /api/agents, /api/tickets.
 
-Schemas → public → Tables має містити 7 таблиць. Для ERD: вибрати public → контекстне меню Generate ERD. Виконати sql/verify.sql у Query Tool. Схему БД створює Hibernate, а не цей SQL-файл.
+| Метод | Шлях для кожного ресурсу | Успішна відповідь |
+|---|---|---|
+| GET | /api/{resource}?page=0&size=20 | 200, PageResponse |
+| GET | /api/{resource}/{id} | 200, DTO |
+| POST | /api/{resource} | 201, DTO та Location |
+| PUT | /api/{resource}/{id} | 200, DTO після повного оновлення |
+| DELETE | /api/{resource}/{id} | 204, без тіла |
 
-## Перевірки
+Для POST і PUT потрібен Content-Type: application/json. PUT потребує повного набору обов'язкових полів; він не створює відсутній ресурс.
+
+Приклад POST /api/customers:
+~~~json
+{"externalCode":"C-API-001","displayName":"Demo API Customer"}
+~~~
+
+Приклад POST /api/agents:
+~~~json
+{"employeeCode":"OP-API-001","fullName":"Demo API Agent","departmentId":1,"skillIds":[1,2]}
+~~~
+
+Приклад POST /api/tickets:
+~~~json
+{"ticketCode":"T-API-001","subject":"Card question","description":"Synthetic request","status":"NEW","customerId":1,"assignedAgentId":1}
+~~~
+
+Ідентифікатори у прикладах відповідають початковому demo-наповненню; перевірте їх через GET. Department і Skill — довідники з ЛР2. Стани звернень: NEW, IN_PROGRESS, RESOLVED, CLOSED; assignedAgentId може бути null.
+
+Помилки API мають JSON-формат ProblemDetail:
+- 400 — невалідний JSON, поля, id або параметри пагінації.
+- 404 — ресурс або пов'язаний запис відсутній.
+- 409 — дубль бізнес-коду або порушення правила видалення.
+- 415 — тіло POST/PUT не у форматі JSON.
+
+Клієнта зі зверненнями, оператора з призначеними зверненнями та звернення з історією взаємодій видалити не можна. Колекція Postman створює власні записи і видаляє їх у порядку Ticket → Agent → Customer.
+
+## CORS для Vue.js
+Дозволені origin за замовчуванням: http://localhost:5173 та http://localhost:8081.
+Методи GET, POST, PUT, DELETE, OPTIONS; заголовки Content-Type, Accept, Authorization.
+Location доступний frontend через exposedHeaders. Cookies/credentials не вмикаються.
+Невідомий origin відхиляється; CORS перевіряється браузером, Postman сам по собі CORS не блокує, тому колекція явно перевіряє preflight.
+
+## Postman і Newman
+1. Import → [BankContact_Lab3.postman_collection.json](postman/BankContact_Lab3.postman_collection.json).
+2. Import → [BankContact_Local.postman_environment.json](postman/BankContact_Local.postman_environment.json).
+3. Вибрати середовище BankContact Local, запустити всі папки Collection Runner у заданому порядку.
+
+24 HTTP-запити охоплюють POST/GET/PUT/DELETE трьох ресурсів, пагінацію, негативні сценарії й OPTIONS preflight. Ідентифікатори передаються через змінні, бізнес-коди отримують унікальний токен запуску.
+
+Запуск тієї самої колекції через CLI Postman Newman (Node.js 16+):
 ~~~powershell
-mvn verify
+npx --yes newman@6.2.1 run postman/BankContact_Lab3.postman_collection.json -e postman/BankContact_Local.postman_environment.json --bail --reporters cli,json --reporter-json-export newman-report.json
 ~~~
-Увага: інтеграційні тести також активують demo і пересоздають навчальну БД.
+Колекція має формат v2.1; це реальна колекція Postman, а Newman — її CLI-runner. Відкриття GUI Postman в автоматизованому прогоні не імітується.
 
-Тести перевіряють записи, FK, IDENTITY, індекси, обидві сторони асоціацій, відхилення дублів, недійсних FK та аудит оновлень. Workflow .github/workflows/verify.yml запускає їх на PostgreSQL 17 і зберігає результати та дамп схеми як Actions artifact.
+## Тести та CI
+~~~powershell
+.\mvnw.cmd verify
+~~~
 
-### Фактично виконана локальна перевірка
-- Maven package: BUILD SUCCESS.
-- Spring Boot demo: exit 0.
-- Hibernate створив 7 таблиць, 6 FK, 18 індексів (5 явних, 7 PK, 6 UNIQUE).
-- Дев'ять перевірок каталогу/цілісності пройшли; див. evidence/validation.txt і database-metadata.json.
-- Локально використано PostgreSQL 18.6 у WASM-збірці PGlite 0.5.15 через PostgreSQL JDBC, оскільки нативний сервер у поточному середовищі не може стартувати від root. Це не перевірка багатокористувацького нативного сервера; стандартний запуск на PostgreSQL 17 відтворюється через compose/Actions.
-- Локально пройшли всі 6 JUnit-тестів (Failures: 0, Errors: 0), зокрема асоціації та @PreUpdate. Результат: evidence/junit-local.txt.
-- **На нативному PostgreSQL 17.11 GitHub Actions завершився успішно:** 6 тестів, 0 помилок, BUILD SUCCESS. Експорт схеми й SQL-перевірка також успішні. [Результат запуску](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41759219066). Перевірений коміт: 1268a4de2d9d0c11c92125d89a3ca736ac06ba70.
+6 ORM-тестів і 16 API-тестів перевіряють моделі, CRUD, валідацію, конфлікти,
+зв'язки, правила видалення та CORS. Тести активують demo і пересоздають навчальну БД.
 
-## Обсяг лабораторної
-Реалізовано ORM-модель, генерацію схеми, репозиторії та контрольне наповнення. Вебінтерфейс, автоматичне SLA-маршрутизування та AI-помічник належать наступним роботам і тут не реалізовані.
+GitHub Actions запускає ці тести на PostgreSQL 17, після чого запускає JAR і виконує Postman-колекцію Newman через реальні HTTP-з'єднання. Артефакт lab3-postgresql-rest-validation містить JUnit-результати, звіт Newman, журнал сервера й дамп схеми.
 
-## Джерела
-- https://docs.spring.io/spring-boot/3.5/
-- https://docs.hibernate.org/orm/6.6/userguide/html_single/
-- https://www.postgresql.org/docs/current/ddl-constraints.html
-- https://www.pgadmin.org/docs/pgadmin4/latest/erd_tool.html
+Фактичні результати ЛР3 зберігаються в evidence/lab3/. Історичні файли evidence/ у корені належать ЛР2.
+
+## Документація
+- [Повний контракт ресурсів](docs/lab3/api.md)
+- [Spring Boot 4 Servlet API](https://docs.spring.io/spring-boot/4.0/reference/web/servlet.html)
+- [Spring MVC CORS](https://docs.spring.io/spring-framework/reference/web/webmvc-cors.html)
+- [Newman](https://learning.postman.com/docs/reference/newman-cli/command-line-integration-with-newman/)

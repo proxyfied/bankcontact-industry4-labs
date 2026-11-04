@@ -19,6 +19,7 @@ public class Agent extends BaseEntity {
     @JoinColumn(name = "department_id", nullable = false,
         foreignKey = @ForeignKey(name = "fk_agent_department"))
     private Department department;
+    @org.hibernate.annotations.BatchSize(size = 50)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "agent_skills",
         joinColumns = @JoinColumn(name = "agent_id",

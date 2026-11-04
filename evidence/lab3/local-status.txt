@@ -1,0 +1,2 @@
+Local PostgreSQL/WASM: Maven verify SUCCESS; 22 JUnit tests, 0 failures, 0 errors.
+Postman v2.1 collection via Newman: 24 HTTP requests, 59 assertions, 0 failures.

@@ -1,0 +1,825 @@
+{
+  "info": {
+    "name": "BankContact Lab 3 REST API",
+    "description": "Start the server with the demo profile on a dedicated lab database. Run all folders in order. Data is synthetic. Collection format v2.1, compatible with Newman.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0 Setup",
+      "item": [
+        {
+          "name": "Read seed agent and initialize variables",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"runToken\", Date.now().toString(36));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "const first = pm.response.json().content[0];",
+                  "pm.test(\"Demo data available\", () => pm.expect(first).to.be.an(\"object\"));",
+                  "if (first) { pm.collectionVariables.set(\"departmentId\", first.departmentId); pm.collectionVariables.set(\"skillIdsJson\", JSON.stringify(first.skills.map(s => s.id))); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/agents?size=1"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "1 Create",
+      "item": [
+        {
+          "name": "Create customers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "const item=pm.response.json();",
+                  "pm.collectionVariables.set(\"customerId\", item.id);",
+                  "pm.test(\"Generated id and Location\", () => { pm.expect(item.id).to.be.a(\"number\"); pm.expect(pm.response.headers.get(\"Location\")).to.include(\"/\"+item.id); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalCode\": \"C-{{runToken}}\",\n  \"displayName\": \"Postman Customer\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create agents",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "const item=pm.response.json();",
+                  "pm.collectionVariables.set(\"agentId\", item.id);",
+                  "pm.test(\"Generated id and Location\", () => { pm.expect(item.id).to.be.a(\"number\"); pm.expect(pm.response.headers.get(\"Location\")).to.include(\"/\"+item.id); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/agents",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeCode\": \"OP-{{runToken}}\",\n  \"fullName\": \"Postman Agent\",\n  \"departmentId\": {{departmentId}},\n  \"skillIds\": {{skillIdsJson}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create tickets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "const item=pm.response.json();",
+                  "pm.collectionVariables.set(\"ticketId\", item.id);",
+                  "pm.test(\"Generated id and Location\", () => { pm.expect(item.id).to.be.a(\"number\"); pm.expect(pm.response.headers.get(\"Location\")).to.include(\"/\"+item.id); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/tickets",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ticketCode\": \"T-{{runToken}}\",\n  \"subject\": \"Postman Question\",\n  \"description\": \"Synthetic Postman test\",\n  \"status\": \"NEW\",\n  \"customerId\": {{customerId}},\n  \"assignedAgentId\": {{agentId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2 Read by id",
+      "item": [
+        {
+          "name": "Get customers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Correct id\", () => pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"customerId\"))));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers/{{customerId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get agents",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Correct id\", () => pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"agentId\"))));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/agents/{{agentId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get tickets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Correct id\", () => pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"ticketId\"))));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/tickets/{{ticketId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3 Update",
+      "item": [
+        {
+          "name": "Update customers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Updated displayName\", () => pm.expect(pm.response.json().displayName).to.eql(\"Updated Customer\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers/{{customerId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalCode\": \"C-{{runToken}}\",\n  \"displayName\": \"Updated Customer\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update agents",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Updated fullName\", () => pm.expect(pm.response.json().fullName).to.eql(\"Updated Agent\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/agents/{{agentId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeCode\": \"OP-{{runToken}}\",\n  \"fullName\": \"Updated Agent\",\n  \"departmentId\": {{departmentId}},\n  \"skillIds\": {{skillIdsJson}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update tickets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Updated status\", () => pm.expect(pm.response.json().status).to.eql(\"RESOLVED\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/tickets/{{ticketId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ticketCode\": \"T-{{runToken}}\",\n  \"subject\": \"Postman Question\",\n  \"description\": \"Synthetic Postman test\",\n  \"status\": \"RESOLVED\",\n  \"customerId\": {{customerId}},\n  \"assignedAgentId\": {{agentId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4 Lists",
+      "item": [
+        {
+          "name": "List customers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Pagination envelope\", () => { pm.expect(pm.response.json().content).to.be.an(\"array\"); pm.expect(pm.response.json().size).to.eql(20); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers?page=0&size=20"
+          },
+          "response": []
+        },
+        {
+          "name": "List agents",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Pagination envelope\", () => { pm.expect(pm.response.json().content).to.be.an(\"array\"); pm.expect(pm.response.json().size).to.eql(20); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/agents?page=0&size=20"
+          },
+          "response": []
+        },
+        {
+          "name": "List tickets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Pagination envelope\", () => { pm.expect(pm.response.json().content).to.be.an(\"array\"); pm.expect(pm.response.json().size).to.eql(20); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/tickets?page=0&size=20"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5 Errors",
+      "item": [
+        {
+          "name": "Invalid customer fields",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });",
+                  "pm.test(\"Validation details\",()=>pm.expect(pm.response.json().errors).to.have.property(\"externalCode\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalCode\": \"\",\n  \"displayName\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Duplicate customer code",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"externalCode\": \"C-{{runToken}}\",\n  \"displayName\": \"Duplicate\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Missing customer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers/999999"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid page size",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/tickets?size=101"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6 CORS",
+      "item": [
+        {
+          "name": "Vue preflight",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Vue origin allowed\", () => pm.expect(pm.response.headers.get(\"Access-Control-Allow-Origin\")).to.eql(\"http://localhost:5173\"));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "OPTIONS",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "http://localhost:5173"
+              },
+              {
+                "key": "Access-Control-Request-Method",
+                "value": "POST"
+              },
+              {
+                "key": "Access-Control-Request-Headers",
+                "value": "content-type"
+              }
+            ],
+            "url": "{{baseUrl}}/api/tickets"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "7 Delete in dependency order",
+      "item": [
+        {
+          "name": "Delete tickets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/tickets/{{ticketId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete agents",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/agents/{{agentId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete customers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers/{{customerId}}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "8 Confirm deletion",
+      "item": [
+        {
+          "name": "Deleted customers returns 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers/{{customerId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Deleted agents returns 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/agents/{{agentId}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Deleted tickets returns 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"JSON response\", () => { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"json\"); pm.response.json(); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/tickets/{{ticketId}}"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}
