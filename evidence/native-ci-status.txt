@@ -1,0 +1,1 @@
+На нативному PostgreSQL 17 у GitHub Actions успішно виконано mvn verify: 6 тестів, 0 помилок і 0 невдалих перевірок. Експорт схеми та SQL-валидація також завершилися успішно. Перевірений коміт 1268a4de2d9d0c11c92125d89a3ca736ac06ba70. Запуск: https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41759219066
