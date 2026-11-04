@@ -1,0 +1,5 @@
+GitHub Actions: SUCCESS, PostgreSQL 17, Java 17, Spring Boot 4.0.9.
+Пройшли 22 тести JUnit (6 ORM + 16 API), помилок і пропусків немає.
+Newman: 24 HTTP-запити, 59 перевірок, 0 помилок.
+Запуск: https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41761399192
+Перевірений commit: b452cf90e985230fb3948def4ef49373811d065b

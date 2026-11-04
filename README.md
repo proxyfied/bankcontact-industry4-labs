@@ -114,6 +114,8 @@ GitHub Actions запускає ці тести на PostgreSQL 17, після �
 
 Фактичні результати ЛР3 зберігаються в evidence/lab3/. Історичні файли evidence/ у корені належать ЛР2.
 
+Підтверджено на PostgreSQL 17: **22 тести JUnit, 24 HTTP-запити, 59 перевірок Newman — усі успішні**. [Результати GitHub Actions](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41761399192).
+
 ## Документація
 - [Повний контракт ресурсів](docs/lab3/api.md)
 - [Spring Boot 4 Servlet API](https://docs.spring.io/spring-boot/4.0/reference/web/servlet.html)
