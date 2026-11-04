@@ -4,3 +4,9 @@ target/
 .env
 *.log
 .DS_Store
+
+frontend/node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+src/main/resources/static/

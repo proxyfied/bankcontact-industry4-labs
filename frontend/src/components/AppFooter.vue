@@ -1,0 +1,1 @@
+<template><footer class="app-footer"><div class="container d-flex flex-wrap justify-content-between gap-2"><span>BankContact <span class="text-muted">/</span> Цифровий контакт-центр</span><span>Морозов Єгор · ІУС-601 · КНЕУ, 2026</span></div></footer></template>

@@ -1,4 +1,31 @@
-# BankContact — Лабораторна робота 3
+# BankContact — лабораторні 1–4
+
+ЛР4 додає адаптивний клієнт **Vue 3 + Vite + axios + Vue Router + Bootstrap 5** до Spring Boot 4 REST API з ЛР3.
+
+- **Огляд**: фактичні кількості клієнтів, операторів і звернень; перші 5 клієнтів.
+- **Клієнти**: список із серверною пагінацією, додавання, редагування та підтвердження видалення; обробка помилок 400/404/409 і відсутності зв’язку.
+- **Про проєкт**: призначення та архітектура системи.
+
+## Запуск повного застосунку на Windows
+
+Потрібні Java 17, Node.js 22.12+ (або 24 LTS), Docker Desktop.
+
+~~~powershell
+docker compose up -d --wait
+npm --prefix frontend ci
+npm --prefix frontend run build:backend
+.\mvnw.cmd -DskipTests package
+java -jar target/bankcontact-0.0.3-SNAPSHOT.jar --spring.profiles.active=demo
+~~~
+
+Відкрити **http://localhost:8080**. Vue обслуговується з JAR, axios звертається до `/api`, Spring Boot працює з PostgreSQL. Профіль `demo` пересоздає таблиці і додає навчальні записи: використовуйте лише окрему навчальну БД. Для збереження даних після перезапуску запускайте JAR без demo; за замовчуванням `ddl-auto=update`.
+
+Для розробки клієнта окремо: `npm --prefix frontend run dev`, Vite проксіює `/api` на 8080. [Конфігурація фронтенду і перевірка в браузері](frontend/README.md).
+
+Попередні реалізації збережено: [ЛР2 ORM](https://github.com/proxyfied/bankcontact-industry4-labs/tree/lab2-orm), [ЛР3 REST API](https://github.com/proxyfied/bankcontact-industry4-labs/tree/lab3-rest-api).
+
+## Backend і матеріали ЛР3
+
 
 **Морозов Єгор, ІУС-601.** Технології Індустрії 4.0, 5.0 в інформаційних управляючих системах.
 

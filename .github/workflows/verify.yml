@@ -1,4 +1,4 @@
-name: Verify BankContact PostgreSQL and REST API
+name: Verify BankContact full stack
 on: [push, workflow_dispatch]
 jobs:
   verify:
@@ -24,6 +24,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Install and build Vue into Spring Boot
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build:backend
+          npx playwright install --with-deps chromium
       - name: Test and package Spring Boot 4 API
         run: mvn -B verify
       - name: Run Postman collection via Newman
@@ -41,6 +47,21 @@ jobs:
           done
           if [ "$ready" != true ]; then cat evidence/lab3/server.log; exit 1; fi
           npx --yes newman@6.2.1 run postman/BankContact_Lab3.postman_collection.json --bail --reporters cli,json --reporter-json-export evidence/lab3/newman-report.json | tee evidence/lab3/newman-console.txt
+      - name: Browser integration tests against packaged Spring Boot and PostgreSQL
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/lab4
+          java -jar target/bankcontact-0.0.3-SNAPSHOT.jar --spring.profiles.active=demo > evidence/lab4/server.log 2>&1 &
+          app_pid=$!
+          trap 'kill "$app_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in {1..60}; do
+            if curl --fail --silent http://localhost:8080/api/customers > /dev/null; then ready=true; break; fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then cat evidence/lab4/server.log; exit 1; fi
+          npm --prefix frontend run test:e2e
       - name: Export schema and SQL validation
         run: |
           mkdir -p evidence/lab3
@@ -49,7 +70,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lab3-postgresql-rest-validation
+          name: lab4-fullstack-validation
           path: |
             target/surefire-reports/
             evidence/lab3/
+            evidence/lab4/
+            frontend/test-results/
