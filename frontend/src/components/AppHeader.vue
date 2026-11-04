@@ -1,3 +1,6 @@
+<script setup>
+const articleAiUrl = import.meta.env.VITE_ARTICLE_AI_URL || 'http://localhost:8082/articles'
+</script>
 <template>
 <header class="app-header">
   <div class="container header-inner">
@@ -9,6 +12,7 @@
       <RouterLink to="/" exact-active-class="active">Огляд</RouterLink>
       <RouterLink to="/customers" active-class="active">Клієнти</RouterLink>
       <RouterLink to="/about" active-class="active">Про проєкт</RouterLink>
+      <a :href="articleAiUrl">AI статті ↗</a>
     </nav>
     <div class="workspace"><span class="workspace-dot"></span>Навчальний простір<span class="avatar">ЄМ</span></div>
   </div>

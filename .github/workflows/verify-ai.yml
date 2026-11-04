@@ -1,0 +1,47 @@
+name: Verify Lab 5 Spring AI integration without a real API key
+on: [push, workflow_dispatch]
+jobs:
+  ai:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compile and test Spring AI and Jackson through a local HTTP stub
+        run: mvn -B -f ai-articles/pom.xml verify
+      - name: Install browser tests
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Browser tests with an explicitly labelled OpenAI HTTP stub
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p evidence/lab5
+          python ai-articles/tools/openai_stub.py > evidence/lab5/stub.log 2>&1 &
+          stub_pid=$!
+          OPENAI_API_KEY=test-key-not-real OPENAI_BASE_URL=http://127.0.0.1:8099 AI_TEST_MODE=true java -jar ai-articles/target/bankcontact-ai-articles-0.0.5-SNAPSHOT.jar > evidence/lab5/server.log 2>&1 &
+          app_pid=$!
+          trap 'kill "$app_pid" "$stub_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in {1..60}; do
+            if curl --fail --silent http://localhost:8082/articles > /dev/null; then ready=true; break; fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then cat evidence/lab5/server.log; exit 1; fi
+          npm --prefix frontend run test:ai
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lab5-ai-stub-validation
+          path: |
+            ai-articles/target/surefire-reports/
+            evidence/lab5/
+            frontend/test-results/

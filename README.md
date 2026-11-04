@@ -1,4 +1,24 @@
-# BankContact — лабораторні 1–4
+# BankContact — лабораторні 1–5
+
+## ЛР5 — Spring AI та структурування статей
+
+Модуль [ai-articles](ai-articles) реалізує Spring Boot 3.5.15, Spring AI 1.1.8, GPT-4o-mini, Jackson Record із 36 полями та форму Thymeleaf. Він запускається окремим сервісом на **8082**; меню Vue містить посилання «AI статті». Основна система ЛР4 залишається на Spring Boot 4 / 8080.
+
+~~~powershell
+.\mvnw.cmd -f ai-articles/pom.xml verify
+$key = Read-Host "OpenAI API key" -AsSecureString
+$env:OPENAI_API_KEY = [System.Net.NetworkCredential]::new("", $key).Password
+java -jar ai-articles/target/bankcontact-ai-articles-0.0.5-SNAPSHOT.jar
+~~~
+
+Відкрити http://localhost:8082/articles. Ключ читається лише на сервері, у Git його немає. Без ключа форма доступна, а генерація повертає 503 із поясненням. [Контракт, поля й порядок тестування](ai-articles/README.md).
+
+**Межа перевірки:** автоматичні тести використовують локальний HTTP-стаб OpenAI, а не реальну LLM. Вони перевіряють інтеграцію Spring AI, парсинг та UI; якість і час живої генерації потребують запуску з власним API-ключем. Тестовий режим явно позначено в UI.
+
+Версію ЛР4 збережено в [lab4-vue-client](https://github.com/proxyfied/bankcontact-industry4-labs/tree/lab4-vue-client).
+
+## ЛР4 — Vue та корпоративний REST API
+
 
 ЛР4 додає адаптивний клієнт **Vue 3 + Vite + axios + Vue Router + Bootstrap 5** до Spring Boot 4 REST API з ЛР3.
 

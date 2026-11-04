@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AI статті · BankContact</title><link rel="stylesheet" href="/articles.css"><script src="/articles.js" defer></script></head>
+<body>
+<header><div class="container nav"><a class="brand" th:href="${bankcontactUrl}"><span class="logo">B<span>↗</span></span>Bank<span class="light">Contact</span></a><nav aria-label="Головне меню"><a th:href="${bankcontactUrl}">Корпоративний застосунок</a><a href="/articles" aria-current="page">AI статті</a></nav><span class="avatar">ЄМ</span></div></header>
+<main class="container">
+<p class="eyebrow">РОБОЧИЙ ПРОСТІР / ІНТЕЛЕКТУАЛЬНЕ ОПРАЦЮВАННЯ</p>
+<div class="heading"><div><h1>Від цитування до структури<span>.</span></h1><p>Перетворюйте бібліографічний опис на впорядковані дані статті.</p></div><span class="model" th:text="${model}">gpt-4o-mini</span></div>
+<div th:if="${testMode}" class="notice test-mode" role="status"><strong>ТЕСТОВИЙ РЕЖИМ.</strong> Відповідь надає HTTP-стаб. Це перевірка інтеграції, а не генерація реальною LLM.</div>
+<div th:unless="${configured}" class="notice warning" role="status">AI-сервіс ще не підключено. Для генерації адміністратор має налаштувати серверний API-ключ OpenAI.</div>
+<div class="workspace">
+<section class="card input-card"><div class="section-top"><div><p class="eyebrow">01 / ВХІДНІ ДАНІ</p><h2>Цитування статті</h2></div><button type="button" class="text-button" id="example">Вставити приклад ↗</button></div>
+<form id="generate-form"><label for="message">Текст бібліографічного опису</label><textarea id="message" name="message" rows="12" maxlength="12000" required placeholder="Автори. Назва статті. Журнал, рік, том, випуск, сторінки, DOI…"></textarea><div class="input-meta"><span>Лише наявні відомості</span><span id="counter">0 / 12000</span></div><p class="hint">Додайте авторів, назву, видання та сторінки. Невідомі поля залишаться порожніми або матимуть значення 0.</p><button id="submit" type="submit" class="primary">Структурувати статтю <span>↗</span></button><button id="clear" type="button" class="secondary">Очистити</button></form>
+<div class="input-foot"><span class="small-mark">i</span><p>Не вводьте конфіденційні дані. Текст буде передано до OpenAI після натискання кнопки.</p></div></section>
+<section class="card output-card" aria-busy="false" id="output"><div class="section-top"><div><p class="eyebrow">02 / РЕЗУЛЬТАТ</p><h2>Структуровані дані</h2></div><span id="clock" class="clock">— мс</span></div>
+<div id="error" role="alert" class="notice error" hidden></div>
+<div id="empty" class="empty"><div class="empty-symbol">{ }</div><h3>Дані починаються з тексту</h3><p>Вставте цитування ліворуч.<br>Тут з’являться 36 структурованих полів.</p><span>JSON → Java Record</span></div>
+<div id="result" hidden><div class="result-summary"><span class="success-tag">Опрацьовано</span><h3 id="article-title"></h3><p id="article-author"></p><div class="facts"><span>Сторінок <strong id="pages"></strong></span><span>Мова <strong id="language"></strong></span><span>Рік <strong id="year"></strong></span></div></div><div class="result-tools"><span>36 полів · SaveArticleToEntity</span><button type="button" class="text-button" id="copy">Копіювати JSON</button></div><div class="table-wrap"><table><thead><tr><th scope="col">Поле</th><th scope="col">Значення</th></tr></thead><tbody id="fields"></tbody></table></div><details><summary>Переглянути JSON</summary><pre id="json"></pre></details><p class="result-note">Category A — фіксоване правило лабораторної. Поле обсягу означає кількість сторінок за ТЗ. 0 у прапорцях означає відсутність підтвердження у тексті.</p></div>
+</section>
+</div>
+<div class="bottom-strip"><span>Spring AI · Jackson · Thymeleaf</span><span>Перевірте результат перед використанням у документах</span></div>
+</main><footer><div class="container"><span>BankContact / AI модуль · Лабораторна 05</span><span>Морозов Єгор · ІУС-601 · КНЕУ, 2026</span></div></footer>
+</body></html>
