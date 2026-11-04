@@ -5,6 +5,15 @@ const base = 'https://localhost:8443', out = path.resolve('../evidence/lab8'), s
 const password = process.env.DEPLOYMENT_TEST_PASSWORD
 if (!password) throw new Error('Set DEPLOYMENT_TEST_PASSWORD to an ephemeral test password')
 const phase = process.env.DEPLOYMENT_PHASE || 'before'
+async function navigateAfterNetworkChange(page, url) {
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try { return await page.goto(url) }
+    catch (error) {
+      if (!String(error).includes('ERR_NETWORK_CHANGED') || attempt === 2) throw error
+      await new Promise(resolve => setTimeout(resolve, 500))
+    }
+  }
+}
 async function login(page) {
   await page.goto(`${base}/login`)
   await page.getByLabel('Логін', { exact: true }).fill('deployment.user')
@@ -57,7 +66,7 @@ if (phase === 'before') {
 } else {
   test('database survived app recreation and database restart, old in-memory session expired', async ({ page, browser }) => {
     const old = await browser.newContext({ ignoreHTTPSErrors: true, storageState: path.resolve('../deploy/runtime/test-session.json') })
-    const previous = await old.newPage(); await previous.goto(`${base}/user`); await expect(previous).toHaveURL(/\/login$/)
+    const previous = await old.newPage(); await navigateAfterNetworkChange(previous, `${base}/user`); await expect(previous).toHaveURL(/\/login$/)
     await login(page)
     expect((await page.goto('/admin')).status()).toBe(200)
     await expect(page.getByRole('cell', { name: 'deployment.user', exact: true })).toBeVisible()
