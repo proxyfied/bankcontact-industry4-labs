@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: bankcontact_lab2
+      POSTGRES_USER: bankcontact
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-bankcontact_dev}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - bankcontact_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bankcontact -d bankcontact_lab2"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  pgadmin:
+    image: dpage/pgadmin4:9
+    environment:
+      PGADMIN_DEFAULT_EMAIL: student@example.com
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-pgadmin_dev}
+    ports:
+      - "127.0.0.1:5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+volumes:
+  bankcontact_pgdata:

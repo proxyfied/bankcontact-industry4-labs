@@ -1,0 +1,57 @@
+@startuml
+!pragma layout smetana
+top to bottom direction
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName DejaVu Sans
+skinparam linetype ortho
+title BankContact — ORM class model
+abstract class BaseEntity <<MappedSuperclass>> {
+  - id : Long <<IDENTITY>>
+  - createdAt : Instant
+  - updatedAt : Instant
+  # onCreate()
+  # onUpdate()
+}
+class Department <<Entity>> {
+  - code : String <<unique>>
+  - name : String
+}
+class Agent <<Entity>> {
+  - employeeCode : String <<unique>>
+  - fullName : String
+}
+class Skill <<Entity>> {
+  - code : String <<unique>>
+  - name : String
+  - description : TEXT
+}
+class Customer <<Entity>> {
+  - externalCode : String <<unique>>
+  - displayName : String
+}
+class Ticket <<Entity>> {
+  - ticketCode : String <<unique>>
+  - subject : String
+  - description : TEXT
+  - status : TicketStatus
+}
+class Interaction <<Entity>> {
+  - eventCode : String <<unique>>
+  - channel : Channel
+  - occurredAt : Instant
+  - summary : TEXT
+}
+BaseEntity <|-- Department
+BaseEntity <|-- Agent
+BaseEntity <|-- Skill
+BaseEntity <|-- Customer
+BaseEntity <|-- Ticket
+BaseEntity <|-- Interaction
+Department "1" -- "0..*" Agent : department / agents
+Agent "0..*" -- "0..*" Skill : agent_skills
+Customer "1" -- "0..*" Ticket : customer / tickets
+Agent "0..1" -- "0..*" Ticket : assignedAgent / tickets
+Ticket "1" -- "0..*" Interaction : ticket / interactions
+@enduml

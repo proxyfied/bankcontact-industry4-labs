@@ -1,0 +1,14 @@
+PostgreSQL 18.6 (PGlite 0.5.15) on wasm32-unknown-emscripten, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.13 (e13ee988ce3d87a738dd8f3661d02223308c412a), 32-bit
+
+Seven physical tables — PASS
+Two records per entity and four many-to-many links — PASS
+Six foreign keys — PASS
+Six identity keys — PASS
+Five explicitly declared indexes — PASS
+Audit fields populated — PASS
+Unique business code rejected — PASS
+Missing parent rejected — PASS
+Duplicate association rejected — PASS
+
+Rows: {"agent_skills": 4, "agents": 2, "customers": 2, "departments": 2, "interactions": 2, "skills": 2, "tickets": 2}
+Indexes: 18

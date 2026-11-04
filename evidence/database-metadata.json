@@ -1,0 +1,827 @@
+{
+  "environment": [
+    {
+      "version": "PostgreSQL 18.6 (PGlite 0.5.15) on wasm32-unknown-emscripten, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 6.0.13 (e13ee988ce3d87a738dd8f3661d02223308c412a), 32-bit"
+    }
+  ],
+  "tables": [
+    {
+      "table_name": "agent_skills"
+    },
+    {
+      "table_name": "agents"
+    },
+    {
+      "table_name": "customers"
+    },
+    {
+      "table_name": "departments"
+    },
+    {
+      "table_name": "interactions"
+    },
+    {
+      "table_name": "skills"
+    },
+    {
+      "table_name": "tickets"
+    }
+  ],
+  "counts": {
+    "agent_skills": 4,
+    "agents": 2,
+    "customers": 2,
+    "departments": 2,
+    "interactions": 2,
+    "skills": 2,
+    "tickets": 2
+  },
+  "columns": [
+    {
+      "table_name": "agent_skills",
+      "column_name": "agent_id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "agent_skills",
+      "column_name": "skill_id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "agents",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "agents",
+      "column_name": "department_id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "agents",
+      "column_name": "id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "YES"
+    },
+    {
+      "table_name": "agents",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "agents",
+      "column_name": "employee_code",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "agents",
+      "column_name": "full_name",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "YES"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "external_code",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "customers",
+      "column_name": "display_name",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "departments",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "departments",
+      "column_name": "id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "YES"
+    },
+    {
+      "table_name": "departments",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "departments",
+      "column_name": "code",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "departments",
+      "column_name": "name",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "interactions",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "interactions",
+      "column_name": "id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "YES"
+    },
+    {
+      "table_name": "interactions",
+      "column_name": "occurred_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "interactions",
+      "column_name": "ticket_id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "interactions",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "interactions",
+      "column_name": "channel",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "interactions",
+      "column_name": "event_code",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "interactions",
+      "column_name": "summary",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "skills",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "skills",
+      "column_name": "id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "YES"
+    },
+    {
+      "table_name": "skills",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "skills",
+      "column_name": "code",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "skills",
+      "column_name": "name",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "skills",
+      "column_name": "description",
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "assigned_agent_id",
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "created_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "customer_id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "id",
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_identity": "YES"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "updated_at",
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "status",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "ticket_code",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "subject",
+      "data_type": "character varying",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    },
+    {
+      "table_name": "tickets",
+      "column_name": "description",
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_identity": "NO"
+    }
+  ],
+  "constraints": [
+    {
+      "table_name": "agent_skills",
+      "conname": "agent_skills_agent_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL agent_id"
+    },
+    {
+      "table_name": "agent_skills",
+      "conname": "agent_skills_pkey",
+      "contype": "p",
+      "definition": "PRIMARY KEY (agent_id, skill_id)"
+    },
+    {
+      "table_name": "agent_skills",
+      "conname": "agent_skills_skill_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL skill_id"
+    },
+    {
+      "table_name": "agent_skills",
+      "conname": "fk_agent_skill_agent",
+      "contype": "f",
+      "definition": "FOREIGN KEY (agent_id) REFERENCES agents(id)"
+    },
+    {
+      "table_name": "agent_skills",
+      "conname": "fk_agent_skill_skill",
+      "contype": "f",
+      "definition": "FOREIGN KEY (skill_id) REFERENCES skills(id)"
+    },
+    {
+      "table_name": "agents",
+      "conname": "agents_created_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "table_name": "agents",
+      "conname": "agents_department_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL department_id"
+    },
+    {
+      "table_name": "agents",
+      "conname": "agents_employee_code_key",
+      "contype": "u",
+      "definition": "UNIQUE (employee_code)"
+    },
+    {
+      "table_name": "agents",
+      "conname": "agents_employee_code_not_null",
+      "contype": "n",
+      "definition": "NOT NULL employee_code"
+    },
+    {
+      "table_name": "agents",
+      "conname": "agents_full_name_not_null",
+      "contype": "n",
+      "definition": "NOT NULL full_name"
+    },
+    {
+      "table_name": "agents",
+      "conname": "agents_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL id"
+    },
+    {
+      "table_name": "agents",
+      "conname": "agents_pkey",
+      "contype": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "agents",
+      "conname": "agents_updated_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "table_name": "agents",
+      "conname": "fk_agent_department",
+      "contype": "f",
+      "definition": "FOREIGN KEY (department_id) REFERENCES departments(id)"
+    },
+    {
+      "table_name": "customers",
+      "conname": "customers_created_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "table_name": "customers",
+      "conname": "customers_display_name_not_null",
+      "contype": "n",
+      "definition": "NOT NULL display_name"
+    },
+    {
+      "table_name": "customers",
+      "conname": "customers_external_code_key",
+      "contype": "u",
+      "definition": "UNIQUE (external_code)"
+    },
+    {
+      "table_name": "customers",
+      "conname": "customers_external_code_not_null",
+      "contype": "n",
+      "definition": "NOT NULL external_code"
+    },
+    {
+      "table_name": "customers",
+      "conname": "customers_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL id"
+    },
+    {
+      "table_name": "customers",
+      "conname": "customers_pkey",
+      "contype": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "customers",
+      "conname": "customers_updated_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "table_name": "departments",
+      "conname": "departments_code_key",
+      "contype": "u",
+      "definition": "UNIQUE (code)"
+    },
+    {
+      "table_name": "departments",
+      "conname": "departments_code_not_null",
+      "contype": "n",
+      "definition": "NOT NULL code"
+    },
+    {
+      "table_name": "departments",
+      "conname": "departments_created_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "table_name": "departments",
+      "conname": "departments_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL id"
+    },
+    {
+      "table_name": "departments",
+      "conname": "departments_name_not_null",
+      "contype": "n",
+      "definition": "NOT NULL name"
+    },
+    {
+      "table_name": "departments",
+      "conname": "departments_pkey",
+      "contype": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "departments",
+      "conname": "departments_updated_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "fk_interaction_ticket",
+      "contype": "f",
+      "definition": "FOREIGN KEY (ticket_id) REFERENCES tickets(id)"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_channel_check",
+      "contype": "c",
+      "definition": "CHECK (((channel)::text = ANY ((ARRAY['PHONE'::character varying, 'EMAIL'::character varying, 'CHAT'::character varying])::text[])))"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_channel_not_null",
+      "contype": "n",
+      "definition": "NOT NULL channel"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_created_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_event_code_key",
+      "contype": "u",
+      "definition": "UNIQUE (event_code)"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_event_code_not_null",
+      "contype": "n",
+      "definition": "NOT NULL event_code"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL id"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_occurred_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL occurred_at"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_pkey",
+      "contype": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_summary_not_null",
+      "contype": "n",
+      "definition": "NOT NULL summary"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_ticket_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL ticket_id"
+    },
+    {
+      "table_name": "interactions",
+      "conname": "interactions_updated_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "table_name": "skills",
+      "conname": "skills_code_key",
+      "contype": "u",
+      "definition": "UNIQUE (code)"
+    },
+    {
+      "table_name": "skills",
+      "conname": "skills_code_not_null",
+      "contype": "n",
+      "definition": "NOT NULL code"
+    },
+    {
+      "table_name": "skills",
+      "conname": "skills_created_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "table_name": "skills",
+      "conname": "skills_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL id"
+    },
+    {
+      "table_name": "skills",
+      "conname": "skills_name_not_null",
+      "contype": "n",
+      "definition": "NOT NULL name"
+    },
+    {
+      "table_name": "skills",
+      "conname": "skills_pkey",
+      "contype": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "skills",
+      "conname": "skills_updated_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL updated_at"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "fk_ticket_agent",
+      "contype": "f",
+      "definition": "FOREIGN KEY (assigned_agent_id) REFERENCES agents(id)"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "fk_ticket_customer",
+      "contype": "f",
+      "definition": "FOREIGN KEY (customer_id) REFERENCES customers(id)"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_created_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_customer_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL customer_id"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_description_not_null",
+      "contype": "n",
+      "definition": "NOT NULL description"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_id_not_null",
+      "contype": "n",
+      "definition": "NOT NULL id"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_pkey",
+      "contype": "p",
+      "definition": "PRIMARY KEY (id)"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_status_check",
+      "contype": "c",
+      "definition": "CHECK (((status)::text = ANY ((ARRAY['NEW'::character varying, 'IN_PROGRESS'::character varying, 'RESOLVED'::character varying, 'CLOSED'::character varying])::text[])))"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_status_not_null",
+      "contype": "n",
+      "definition": "NOT NULL status"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_subject_not_null",
+      "contype": "n",
+      "definition": "NOT NULL subject"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_ticket_code_key",
+      "contype": "u",
+      "definition": "UNIQUE (ticket_code)"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_ticket_code_not_null",
+      "contype": "n",
+      "definition": "NOT NULL ticket_code"
+    },
+    {
+      "table_name": "tickets",
+      "conname": "tickets_updated_at_not_null",
+      "contype": "n",
+      "definition": "NOT NULL updated_at"
+    }
+  ],
+  "indexes": [
+    {
+      "tablename": "agent_skills",
+      "indexname": "agent_skills_pkey",
+      "indexdef": "CREATE UNIQUE INDEX agent_skills_pkey ON public.agent_skills USING btree (agent_id, skill_id)"
+    },
+    {
+      "tablename": "agent_skills",
+      "indexname": "idx_agent_skills_skill",
+      "indexdef": "CREATE INDEX idx_agent_skills_skill ON public.agent_skills USING btree (skill_id)"
+    },
+    {
+      "tablename": "agents",
+      "indexname": "agents_employee_code_key",
+      "indexdef": "CREATE UNIQUE INDEX agents_employee_code_key ON public.agents USING btree (employee_code)"
+    },
+    {
+      "tablename": "agents",
+      "indexname": "agents_pkey",
+      "indexdef": "CREATE UNIQUE INDEX agents_pkey ON public.agents USING btree (id)"
+    },
+    {
+      "tablename": "agents",
+      "indexname": "idx_agents_department",
+      "indexdef": "CREATE INDEX idx_agents_department ON public.agents USING btree (department_id)"
+    },
+    {
+      "tablename": "customers",
+      "indexname": "customers_external_code_key",
+      "indexdef": "CREATE UNIQUE INDEX customers_external_code_key ON public.customers USING btree (external_code)"
+    },
+    {
+      "tablename": "customers",
+      "indexname": "customers_pkey",
+      "indexdef": "CREATE UNIQUE INDEX customers_pkey ON public.customers USING btree (id)"
+    },
+    {
+      "tablename": "departments",
+      "indexname": "departments_code_key",
+      "indexdef": "CREATE UNIQUE INDEX departments_code_key ON public.departments USING btree (code)"
+    },
+    {
+      "tablename": "departments",
+      "indexname": "departments_pkey",
+      "indexdef": "CREATE UNIQUE INDEX departments_pkey ON public.departments USING btree (id)"
+    },
+    {
+      "tablename": "interactions",
+      "indexname": "idx_interactions_ticket_time",
+      "indexdef": "CREATE INDEX idx_interactions_ticket_time ON public.interactions USING btree (ticket_id, occurred_at)"
+    },
+    {
+      "tablename": "interactions",
+      "indexname": "interactions_event_code_key",
+      "indexdef": "CREATE UNIQUE INDEX interactions_event_code_key ON public.interactions USING btree (event_code)"
+    },
+    {
+      "tablename": "interactions",
+      "indexname": "interactions_pkey",
+      "indexdef": "CREATE UNIQUE INDEX interactions_pkey ON public.interactions USING btree (id)"
+    },
+    {
+      "tablename": "skills",
+      "indexname": "skills_code_key",
+      "indexdef": "CREATE UNIQUE INDEX skills_code_key ON public.skills USING btree (code)"
+    },
+    {
+      "tablename": "skills",
+      "indexname": "skills_pkey",
+      "indexdef": "CREATE UNIQUE INDEX skills_pkey ON public.skills USING btree (id)"
+    },
+    {
+      "tablename": "tickets",
+      "indexname": "idx_tickets_agent_status",
+      "indexdef": "CREATE INDEX idx_tickets_agent_status ON public.tickets USING btree (assigned_agent_id, status)"
+    },
+    {
+      "tablename": "tickets",
+      "indexname": "idx_tickets_customer",
+      "indexdef": "CREATE INDEX idx_tickets_customer ON public.tickets USING btree (customer_id)"
+    },
+    {
+      "tablename": "tickets",
+      "indexname": "tickets_pkey",
+      "indexdef": "CREATE UNIQUE INDEX tickets_pkey ON public.tickets USING btree (id)"
+    },
+    {
+      "tablename": "tickets",
+      "indexname": "tickets_ticket_code_key",
+      "indexdef": "CREATE UNIQUE INDEX tickets_ticket_code_key ON public.tickets USING btree (ticket_code)"
+    }
+  ],
+  "assignments": [
+    {
+      "employee_code": "OP-001",
+      "skill_code": "CARDS"
+    },
+    {
+      "employee_code": "OP-001",
+      "skill_code": "ONLINE"
+    },
+    {
+      "employee_code": "OP-002",
+      "skill_code": "CARDS"
+    },
+    {
+      "employee_code": "OP-002",
+      "skill_code": "ONLINE"
+    }
+  ],
+  "tickets": [
+    {
+      "ticket_code": "T-001",
+      "external_code": "C-001",
+      "employee_code": "OP-001",
+      "event_code": "EV-001",
+      "channel": "PHONE"
+    },
+    {
+      "ticket_code": "T-002",
+      "external_code": "C-002",
+      "employee_code": "OP-002",
+      "event_code": "EV-002",
+      "channel": "CHAT"
+    }
+  ],
+  "checks": [
+    "Seven physical tables — PASS",
+    "Two records per entity and four many-to-many links — PASS",
+    "Six foreign keys — PASS",
+    "Six identity keys — PASS",
+    "Five explicitly declared indexes — PASS",
+    "Audit fields populated — PASS",
+    "Unique business code rejected — PASS",
+    "Missing parent rejected — PASS",
+    "Duplicate association rejected — PASS"
+  ]
+}
