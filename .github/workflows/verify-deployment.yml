@@ -1,0 +1,78 @@
+name: Verify Lab 8 Docker deployment on Ubuntu
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  deployment:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify application and production settings
+        run: |
+          mvn -B -f security-service/pom.xml verify
+          find deploy -name '*.sh' -exec bash -n {} \;
+      - name: Prepare ephemeral CI secrets and self-signed test certificate
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash deploy/ci-cert.sh
+          test_password=$(openssl rand -hex 20)
+          echo "::add-mask::$test_password"
+          echo "DEPLOYMENT_TEST_PASSWORD=$test_password" >> "$GITHUB_ENV"
+          mkdir -p evidence/lab8
+      - name: Build and start isolated Docker stack
+        run: docker compose --env-file deploy/.env -f docker-compose.yml up -d --build --wait --wait-timeout 180
+      - name: Validate TLS with its test CA and nginx configuration
+        run: |
+          curl --fail --silent --cacert deploy/runtime/letsencrypt/live/localhost/fullchain.pem https://localhost:8443/actuator/health/readiness > evidence/lab8/health.json
+          docker compose --env-file deploy/.env -f docker-compose.yml exec -T nginx nginx -t
+      - name: Install browser
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Browser verification through HTTPS proxy
+        working-directory: frontend
+        env:
+          DEPLOYMENT_PHASE: before
+        run: npx playwright test --config playwright.deployment.config.js
+      - name: Recreate Java container and restart database
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker compose --env-file deploy/.env -f docker-compose.yml up -d --force-recreate --wait app
+          docker compose --env-file deploy/.env -f docker-compose.yml restart db
+          curl --fail --silent --retry 30 --retry-all-errors --retry-delay 2 --cacert deploy/runtime/letsencrypt/live/localhost/fullchain.pem https://localhost:8443/actuator/health/readiness > evidence/lab8/health-after-restart.json
+          bash deploy/assign-role.sh deployment.user ROLE_ADMIN > evidence/lab8/role-assignment.txt
+      - name: Browser verification after restarts
+        working-directory: frontend
+        env:
+          DEPLOYMENT_PHASE: after
+        run: npx playwright test --config playwright.deployment.config.js
+      - name: Verify network isolation and restricted PostgreSQL role
+        run: python deploy/ci-check.py
+      - name: Export non-sensitive runtime status
+        if: always()
+        run: |
+          mkdir -p evidence/lab8
+          docker compose --env-file deploy/.env -f docker-compose.yml ps -a > evidence/lab8/compose-status.txt
+          docker stats --no-stream --format '{{.Name}} {{.MemUsage}}' > evidence/lab8/memory.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lab8-linux-docker-https-verification
+          path: |
+            security-service/target/surefire-reports/*.txt
+            evidence/lab8/
+      - name: Stop temporary CI deployment
+        if: always()
+        run: docker compose --env-file deploy/.env -f docker-compose.yml down

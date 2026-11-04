@@ -4,6 +4,7 @@
  <groupId>ua.edu.kneu</groupId><artifactId>bankcontact-security</artifactId><version>0.0.7-SNAPSHOT</version>
  <properties><java.version>17</java.version></properties>
  <dependencies>
+  <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-actuator</artifactId></dependency>
   <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-web</artifactId></dependency>
   <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-security</artifactId></dependency>
   <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-data-jpa</artifactId></dependency>

@@ -1,0 +1,7 @@
+**
+!Dockerfile
+!security-service/
+!security-service/pom.xml
+!security-service/src/
+!security-service/src/main/
+!security-service/src/main/**

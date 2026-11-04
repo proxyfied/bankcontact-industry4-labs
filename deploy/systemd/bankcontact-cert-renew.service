@@ -1,0 +1,8 @@
+[Unit]
+Description=Renew BankContact TLS certificate
+Requires=docker.service
+After=docker.service
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/bankcontact
+ExecStart=/bin/bash /opt/bankcontact/deploy/renew-cert.sh

@@ -72,3 +72,7 @@ java -jar security-service/target/bankcontact-security-0.0.7-SNAPSHOT.jar --spri
 ```
 
 Адреса: http://localhost:8084/. Пункт «Доступ» у Vue веде до цього модуля. [Ролі, навчальні акаунти, параметри та перевірка сесій](lab7/security.md). Модуль використовує PostgreSQL, запущений вище; сесія захищає його сторінки на 8084.
+
+## Розгортання на Linux
+
+Production Docker-комплект для застосунку ЛР7: [інструкція ЛР8](lab8/deployment.md). Потрібні VPS, домен і Docker Compose. `Dockerfile`, `docker-compose.yml`, конфігурації Nginx/Certbot та production-профіль зберігаються в репозиторії. `compose.yml` залишається локальною конфігурацією попередніх робіт.

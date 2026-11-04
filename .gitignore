@@ -10,3 +10,7 @@ frontend/dist/
 frontend/test-results/
 frontend/playwright-report/
 src/main/resources/static/
+
+deploy/.env
+deploy/runtime/
+deploy/backups/
