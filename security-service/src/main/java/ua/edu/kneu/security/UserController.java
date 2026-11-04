@@ -43,5 +43,5 @@ public class UserController {
   model.addAttribute("activeUsers",active);return "admin-page";
  }
  @GetMapping({"/manager","/manager/"}) String manager() { return "manager-page"; }
- @GetMapping("/access-denied") @ResponseStatus(HttpStatus.FORBIDDEN) String forbidden() { return "access-denied"; }
+ @RequestMapping("/access-denied") @ResponseStatus(HttpStatus.FORBIDDEN) String forbidden() { return "access-denied"; }
 }
