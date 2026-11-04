@@ -1,0 +1,427 @@
+{
+  "config": {
+    "argv": [
+      "/opt/hostedtoolcache/node/22.23.4/x64/bin/node",
+      "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/node_modules/.bin/playwright",
+      "test"
+    ],
+    "configFile": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/playwright.config.js",
+    "rootDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "ci": {
+        "commitHref": "https://github.com/proxyfied/bankcontact-industry4-labs/commit/2d6089719cc0cc54c99ef32021e71ee778794550",
+        "commitHash": "2d6089719cc0cc54c99ef32021e71ee778794550",
+        "buildHref": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41764755479"
+      },
+      "gitCommit": {
+        "shortHash": "2d60897",
+        "hash": "2d6089719cc0cc54c99ef32021e71ee778794550",
+        "subject": "Use customer identity for browser assertions and document integrated architecture",
+        "body": "Use customer identity for browser assertions and document integrated architecture",
+        "author": {
+          "name": "proxyfied",
+          "email": "167390963+proxyfied@users.noreply.github.com",
+          "time": 1793761443000
+        },
+        "committer": {
+          "name": "proxyfied",
+          "email": "167390963+proxyfied@users.noreply.github.com",
+          "time": 1793761443000
+        },
+        "branch": "main"
+      },
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/proxyfied/bankcontact-industry4-labs/commit/2d6089719cc0cc54c99ef32021e71ee778794550",
+            "commitHash": "2d6089719cc0cc54c99ef32021e71ee778794550",
+            "buildHref": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41764755479"
+          },
+          "gitCommit": {
+            "shortHash": "2d60897",
+            "hash": "2d6089719cc0cc54c99ef32021e71ee778794550",
+            "subject": "Use customer identity for browser assertions and document integrated architecture",
+            "body": "Use customer identity for browser assertions and document integrated architecture",
+            "author": {
+              "name": "proxyfied",
+              "email": "167390963+proxyfied@users.noreply.github.com",
+              "time": 1793761443000
+            },
+            "committer": {
+              "name": "proxyfied",
+              "email": "167390963+proxyfied@users.noreply.github.com",
+              "time": 1793761443000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "ci": {
+            "commitHref": "https://github.com/proxyfied/bankcontact-industry4-labs/commit/2d6089719cc0cc54c99ef32021e71ee778794550",
+            "commitHash": "2d6089719cc0cc54c99ef32021e71ee778794550",
+            "buildHref": "https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41764755479"
+          },
+          "gitCommit": {
+            "shortHash": "2d60897",
+            "hash": "2d6089719cc0cc54c99ef32021e71ee778794550",
+            "subject": "Use customer identity for browser assertions and document integrated architecture",
+            "body": "Use customer identity for browser assertions and document integrated architecture",
+            "author": {
+              "name": "proxyfied",
+              "email": "167390963+proxyfied@users.noreply.github.com",
+              "time": 1793761443000
+            },
+            "committer": {
+              "name": "proxyfied",
+              "email": "167390963+proxyfied@users.noreply.github.com",
+              "time": 1793761443000
+            },
+            "branch": "main"
+          },
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/e2e",
+        "snapshotDir": "/home/runner/work/bankcontact-industry4-labs/bankcontact-industry4-labs/frontend/e2e",
+        "testIgnore": [],
+        "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
+        "timeout": 30000,
+        "use": {
+          "baseURL": "http://localhost:8080",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "screen": {
+            "width": 1920,
+            "height": 1080
+          },
+          "deviceScaleFactor": 1,
+          "isMobile": false,
+          "hasTouch": false,
+          "defaultBrowserType": "chromium",
+          "trace": "retain-on-failure"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../evidence/lab4/playwright-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "bankcontact.spec.js",
+      "file": "bankcontact.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Three pages show real data and use SPA navigation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 766,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T03:05:37.730Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5de261b3f6b39c572874-e069102257ed139f2345",
+          "file": "bankcontact.spec.js",
+          "line": 15,
+          "column": 1
+        },
+        {
+          "title": "Create, reload, update, cancel deletion and delete a customer",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1750,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T03:05:38.700Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5de261b3f6b39c572874-e6555ab76865bf0b6bd4",
+          "file": "bankcontact.spec.js",
+          "line": 33,
+          "column": 1
+        },
+        {
+          "title": "Duplicate code and linked history display HTTP 409 safely",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 843,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T03:05:40.459Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5de261b3f6b39c572874-ec6de958dddd1828f1bd",
+          "file": "bankcontact.spec.js",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "Network failure is caught and retry restores the list",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 322,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T03:05:41.314Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5de261b3f6b39c572874-53e83f06eac0e7bc37f3",
+          "file": "bankcontact.spec.js",
+          "line": 88,
+          "column": 1
+        },
+        {
+          "title": "Mobile layout keeps page and forms inside viewport",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 417,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T03:05:41.644Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5de261b3f6b39c572874-8fa0deca1daa5cac1733",
+          "file": "bankcontact.spec.js",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Pagination and creating a customer beyond the first page",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 827,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T03:05:42.071Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5de261b3f6b39c572874-a3c0e46eaaaf30614deb",
+          "file": "bankcontact.spec.js",
+          "line": 117,
+          "column": 1
+        },
+        {
+          "title": "Required form fields prevent empty submissions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 387,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T03:05:42.909Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5de261b3f6b39c572874-8b3914718ffbd40fd4d6",
+          "file": "bankcontact.spec.js",
+          "line": 147,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-04T03:05:37.301Z",
+    "duration": 6048.987,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

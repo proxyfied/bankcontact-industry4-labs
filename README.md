@@ -24,6 +24,14 @@ java -jar target/bankcontact-0.0.3-SNAPSHOT.jar --spring.profiles.active=demo
 
 Попередні реалізації збережено: [ЛР2 ORM](https://github.com/proxyfied/bankcontact-industry4-labs/tree/lab2-orm), [ЛР3 REST API](https://github.com/proxyfied/bankcontact-industry4-labs/tree/lab3-rest-api).
 
+## Перевірка ЛР4
+
+[Успішний запуск GitHub Actions](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41764755479): **22 тести JUnit, 59 перевірок Newman і 7 наскрізних тестів Chromium** на PostgreSQL 17. Vue перевіряється саме з production-збірки всередині JAR.
+
+![Головна сторінка BankContact](evidence/lab4/screenshots/01-home.png)
+
+[Скріншоти всіх сторінок та CRUD](evidence/lab4/screenshots) · [Звіт Playwright](evidence/lab4/playwright-results.json) · [Схема інтеграції](docs/lab4/architecture.puml).
+
 ## Backend і матеріали ЛР3
 
 
