@@ -1,0 +1,3 @@
+Реальний OpenAI API: SUCCESS, HTTP 200, GPT-4o-mini, testMode=false.
+Підтверджено 36 рядкових полів, 11 сторінок, ukr, прапорці країни та точне цитування.
+clock: 6435 мс. Запуск: https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41776992257

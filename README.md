@@ -13,7 +13,7 @@ java -jar ai-articles/target/bankcontact-ai-articles-0.0.5-SNAPSHOT.jar
 
 Відкрити http://localhost:8082/articles. Ключ читається лише на сервері, у Git його немає. Без ключа форма доступна, а генерація повертає 503 із поясненням. [Контракт, поля й порядок тестування](ai-articles/README.md).
 
-**Межа перевірки:** автоматичні тести використовують локальний HTTP-стаб OpenAI, а не реальну LLM. Вони перевіряють інтеграцію Spring AI, парсинг та UI; якість і час живої генерації потребують запуску з власним API-ключем. Тестовий режим явно позначено в UI.
+**Реальна перевірка GPT-4o-mini успішна:** HTTP 200, 36 рядкових полів, 11 сторінок, мова ukr та правильні прапорці країни. Оригінальне цитування збережено без змін; серверний clock — **6435 мс**. [Запуск із реальною моделлю](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41776992257), [повна відповідь JSON](evidence/lab5-live/generation-response.json), [скріншоти](evidence/lab5-live/screenshots). Це один контрольний приклад, а не середній час чи гарантія якості на довільних текстах. Автоматичні перевірки помилок додатково використовують явно позначений HTTP-стаб.
 
 [Перевірка ЛР5 у GitHub Actions](https://github.com/proxyfied/bankcontact-industry4-labs/actions/runs/41770888786): 31 Java-тест і 4 браузерні сценарії зі стабом успішні. [Скріншоти](evidence/lab5/screenshots) і [звіт Playwright](evidence/lab5/playwright-results.json).
 
