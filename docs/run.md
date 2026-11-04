@@ -37,7 +37,20 @@ java -jar ai-articles/target/bankcontact-ai-articles-0.0.5-SNAPSHOT.jar
 
 Для звичайної генерації не задавайте тестові `OPENAI_BASE_URL` та `AI_TEST_MODE`. Помилки: 400 — невалідний запит, 415 — неправильний Content-Type, 502 — помилка моделі або відповіді, 503 — відсутній ключ.
 
-## Перевірка
+## BI аналітика та імпорт Excel
+
+Запустіть PostgreSQL і корпоративний застосунок за командами вище. В іншому вікні PowerShell:
+
+```powershell
+.\mvnw.cmd -f bi-service/pom.xml verify
+java -jar bi-service/target/bankcontact-bi-0.0.6-SNAPSHOT.jar
+```
+
+Відкрийте http://localhost:8080/#/analytics або пункт «BI аналітика» в меню. BI-сервіс використовує Spring Boot 3 і порт 8083. Параметри БД: `DB_URL`, `DB_USER`, `DB_PASSWORD`; порт: `BI_PORT`. Для іншої адреси задайте `VITE_BI_API_URL` перед збіркою Vue і відповідний `BI_CORS_ORIGINS` на сервері.
+
+[Файл для імпорту](../fixtures/lab6/template.xlsx) містить 12 навчальних звернень. Кнопка «Завантажити шаблон» створює файл із заголовками та одним прикладом. Замініть його власними рядками та унікальними кодами. [Формат і контракт BI](lab6/bi.md).
+
+## Автоматичні перевірки
 
 ```powershell
 .\mvnw.cmd verify
